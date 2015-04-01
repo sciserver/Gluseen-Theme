@@ -65,6 +65,40 @@ header {
 				-moz-box-shadow: 0 3px 9px rgba(0,0,0,.075);
 				box-shadow: inset 0 3px 9px rgba(0,0,0,.075);
 			}
+			& >li>.dropdown-menu {
+				text-align: left;
+				background-color: @brand-primary-darker;
+				color: #fff;
+				border: 1px solid rgba(0,0,0,.15);
+
+				> li > a {
+					padding-left: 10px;
+					padding-right: 10px;
+					color: #fff;
+				}
+
+				> li > a:hover,
+				> li > a:focus {
+					background-image: -webkit-gradient(linear, left 0%, left 100%, from(@brand-primary-darker), to(@brand-primary-darkest));
+					background-image: -webkit-linear-gradient(top, @brand-primary-darker 0%, @brand-primary-darkest 100%);
+					background-image: -moz-linear-gradient(top, @brand-primary-darker 0%, @brand-primary-darkest 100%);
+					background-image: linear-gradient(to bottom, @brand-primary-darker 0%, @brand-primary-darkest 100%);
+					background-repeat: repeat-x;
+					filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff357def', endColorstr='#ff255682', GradientType=0);
+					background-color: @brand-primary-darkest;
+				}
+				> .active > a,
+				> .active > a:hover,
+				> .active > a:focus {
+				  background-image: -webkit-gradient(linear, left 0%, left 100%, from(@brand-primary-dark), to(@brand-primary-darker));
+				  background-image: -webkit-linear-gradient(top, @brand-primary-dark 0%, @brand-primary-darker 100%);
+				  background-image: -moz-linear-gradient(top, @brand-primary-dark 0%, @brand-primary-darker 100%);
+				  background-image: linear-gradient(to bottom, @brand-primary-dark 0%, @brand-primary-darker 100%);
+				  background-repeat: repeat-x;
+				  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff428bca', endColorstr='#ff357ebd', GradientType=0);
+				  background-color: @brand-primary-darker;
+				}
+			}
 		}
 	}
 	
@@ -258,6 +292,13 @@ footer.pagefooter {
 	}
 
 /* ================================================
+   Body
+   ================================================ */
+body.speakers span.label {
+	display:inline-block; 
+	white-space:inherit;
+}
+/* ================================================
    Search Results
    ================================================ */
 
@@ -266,9 +307,91 @@ footer.pagefooter {
    ================================================ */
 
 /* ================================================
-   NavBar
+   Login Menu (from WCK)
    ================================================ */
-
+.login-menu ul {
+	list-style-type: none;
+	padding-left:0;
+	li {
+		clear:				both;
+		label {
+			float: 			left;
+			max-width: 		24%;
+		}
+		input {
+			margin-bottom: 	10px;
+			float: 			right;
+			max-width: 		64%;
+		}
+	}
+}
+   
+/* ================================================
+   Nav Menus
+   ================================================ */
+.idies-menu {
+	.nav;
+	.nav-pills;
+	.nav-stacked;
+	li>a {
+		background-color:	transparent;
+		border-left:		solid 2px transparent;
+		color:				@text-color;
+	}
+	li>a:hover, li>a:focus {
+		background-color:	transparent;
+		//border-left:		solid 2px @brand-primary;
+		color:				@link-hover-color;
+		font-weight: 		600;
+	}
+	li.active>a {
+		background-color:	transparent;
+		border-left:		solid 2px @brand-primary;
+		color:				@link-color;
+	}
+	li.active>a:hover, li.active>a:focus {
+		background-color:	transparent;
+		color:				@link-hover-color;
+		font-weight: 		500;
+	}
+}
+.idies-sub-menu {
+	.nav;
+	.nav-pills;
+	.nav-stacked;
+	li>a {	
+		padding: 5px 30px;
+		font-weight: 500;
+		font-size: 0.9em;
+		background-color:	transparent;
+		border-left:		solid 2px transparent;
+	}
+	li:hover>a, li:focus>a {
+		font-weight:		600;
+		background-color:	transparent;
+		border-left:		solid 2px transparent;
+		color:				inherit;
+	}
+	li.active>a  {
+		font-weight:		600;
+		background-color:	transparent;
+		border-left:		solid 2px transparent;
+		color:				inherit;
+	}
+	li:hover.active>a, li:focus.active>a  {
+		font-weight:		600;
+		background-color:	transparent;
+		border-left:		solid 2px transparent;
+		color:				inherit;
+	}
+}
+.sidebar section.widget ul.menu {
+	.idies-menu;
+}
+.sidebar section.widget ul.sub-menu {
+	.idies-sub-menu;
+}
+   
 /* ================================================
    DropDown 
    ================================================ */

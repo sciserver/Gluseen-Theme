@@ -1,11 +1,18 @@
 <?php 
+
+//are the explore widgets set up?
+$has_news =  ( dynamic_sidebar( 'sidebar-splash-1' ) ) && ( dynamic_sidebar( 'sidebar-splash-2' ) )  ;
+$has_explore =  ( dynamic_sidebar( 'sidebar-splash-3' ) ) && ( dynamic_sidebar( 'sidebar-splash-4' ) ) && ( dynamic_sidebar( 'sidebar-splash-5' ) )  ;
+
 //This is where the carousel, h1 and description goes. 
+if ( function_exists( 'get_cfc_meta' ) ) : 
+	$slideshow = get_cfc_meta( 'splash_slideshow' ); 
+	if ( count( $slideshow ) ) : 
 ?>
 <section class="splash-slides" >
 <div id="splash-carousel" class="carousel slide" data-ride="carousel">
 <div class="carousel-inner" role="listbox">
-<?php if ( function_exists( 'get_cfc_meta' ) ) : 
-	$slideshow = get_cfc_meta( 'splash_slideshow' ); 
+<?php 
 	$slide_class = 'item active'; 
 	foreach( get_cfc_meta( 'splash_slideshow' ) as $key => $value ) : ?>
 		<div class="<?php echo $slide_class; ?>">
@@ -16,7 +23,7 @@
 		<?php if ( 'posts' == get_option( 'show_on_front' ) ) {
 			include( get_home_template() );
 		} else {
-			include( get_page_template() );
+			include( roots_template_path() );
 		} ?>
 		<hr>
 		</div>
@@ -25,7 +32,6 @@
 		</div>
 		<?php $slide_class = 'item'; ?>
 	<?php endforeach; ?>
-<?php endif; ?>
 </div>
   <!-- Controls -->
   <a class="left carousel-control" href="#splash-carousel" role="button" data-slide="prev">
@@ -38,6 +44,26 @@
   </a>
 </div>
 </section>
+<?php
+	else :
+		?><!-- No slides --><?php
+	endif;
+else :
+?><!-- Function get_cfc_meta doesn't exist - WCK plugin not installed. --><?php
+endif;
+// show front page content
+if ( 'posts' == get_option( 'show_on_front' ) ) {
+?><div class="container"><?php
+    include( get_home_template() );
+?></div><?php
+} else {
+?><div class="container"><?php
+    include( get_page_template() );
+?></div><?php
+}
+// show news feeds: jobs, funding, events, etc.
+if ( $has_news ) :
+?>
 <section class="splash-widgets" >
 	<div class="container">
 		<hr />
@@ -49,9 +75,17 @@
 				<?php dynamic_sidebar('sidebar-splash-2'); ?>
 			</div>
 		</div>
+<?php if ( $has_explore ) : ?>
 		<hr />
+<?php endif; ?>
 	</div>
 </section>
+<?php
+endif;
+?>
+<?php
+if ( $has_explore ) :
+?>
 <section class="splash-explore" >
 	<div class="container">
 		<div class="row">
@@ -74,6 +108,9 @@
 		</div>
 	</div>
 </section>	
+<?php
+endif;
+?>
 <?php
 //end Front Page Template.
 ?>

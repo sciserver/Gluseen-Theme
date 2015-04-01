@@ -7,10 +7,10 @@
 
 @import "_font-awesome";
 
- 
 /* ================================================
    Colors
    ================================================ */
+
 @brand-primary:         	#5189BC;					//set your primary color here
 @brand-success:         	spin(@brand-primary, -30);
 @brand-info:            	spin(@brand-primary, 30);
@@ -102,6 +102,13 @@
 
 @headings-font-family:    "Oswald", Helvetica, Arial, sans-serif;
 @headings-color:          @gray-lightish;
+
+span.x-small, p.x-small { font-size:x-small; }
+span.small, p.small { font-size:small; }
+span.medium, p.medium { font-size:medium; }
+span.large, p.large { font-size:large; }
+span.x-large, p.x-large { font-size:x-large; }
+span.sans, p.sans { font-family: @font-family-sans-serif; }
 
 /* ================================================
    Header
@@ -235,16 +242,106 @@ footer.pagefooter {
 	}
 
 /* ================================================
-   Search Results
+   Panels
    ================================================ */
+
+
+/* ================================================
+   Forms
+   ================================================ */
+.alignleft-wrap { float:left; }
+.alignright-wrap { float:right; }
+.col-md-2-wrap { .make-md-column(2); }
+.col-md-3-wrap { .make-md-column(3); }
+.col-md-5-wrap { .make-md-column(5); }
+.col-md-6-wrap { .make-md-column(6); }
+.col-xs-2-wrap { .make-xs-column(2); }
+.col-xs-3-wrap { .make-xs-column(3); }
+.col-xs-5-wrap { .make-xs-column(5); }
+.col-xs-6-wrap { .make-xs-column(6); }
+.col-xs-12-wrap { .make-xs-column(12); }
+.clearfix-wrap { .clearfix(); }
 
 /* ================================================
    Archive
    ================================================ */
 
 /* ================================================
-   NavBar
+   Buttons
    ================================================ */
+.btn {
+	&.btn-default {
+		p, h1, h2, h3, h4, h5, h6, blockquote, a, a:hover {
+			color:						@white;
+		}
+	}
+	&.btn-primary {
+		p, h1, h2, h3, h4, h5, h6, blockquote, a, a:hover {
+			color:						@white;
+		}
+	}
+	&.btn-info {
+		p, h1, h2, h3, h4, h5, h6, blockquote, a, a:hover {
+			color:						@white;
+		}
+	}
+	&.btn-success {
+		p, h1, h2, h3, h4, h5, h6, blockquote, a, a:hover {
+			color:						@white;
+		}
+	}
+	&.btn-warning {
+		p, h1, h2, h3, h4, h5, h6, blockquote, a, a:hover {
+			color:						@white;
+		}
+	}
+	&.btn-danger {
+		p, h1, h2, h3, h4, h5, h6, blockquote, a, a:hover {
+			color:						@white;
+		}
+	}
+}
+
+/* ================================================
+   Wells
+   ================================================ */
+.well {
+	&.well-primary {
+		background-color:			@brand-primary;
+		border-color:				@brand-primary-darker;
+		p, h1, h2, h3, h4, h5, h6, blockquote, a {
+			color:						@white;
+		}
+	}
+	&.well-info {
+		background-color:			@brand-info;
+		border-color:				darken(@brand-info,25%);
+		p, h1, h2, h3, h4, h5, h6, blockquote, a {
+			color:						@gray-darker;
+		}
+	}
+	&.well-success {
+		background-color:			@brand-success;
+		border-color:				darken(@brand-success,25%);
+		p, h1, h2, h3, h4, h5, h6, blockquote, a {
+			color:						@gray-darker;
+		}
+	}
+	&.well-warning {
+		background-color:			@brand-warning;
+		border-color:				darken(@brand-warning,25%);
+		p, h1, h2, h3, h4, h5, h6, blockquote, a {
+			color:						@gray-darker;
+		}
+	}
+	&.well-danger {
+		background-color:			@brand-danger;
+		border-color:				darken(@brand-danger,25%);
+		p, h1, h2, h3, h4, h5, h6, blockquote, a {
+			color:						@gray-darker;
+		}
+	}
+}
 
 /* ================================================
    DropDown 
