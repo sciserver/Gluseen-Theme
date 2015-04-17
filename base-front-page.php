@@ -8,8 +8,6 @@
   <![endif]-->
 
   <?php
-	//do_action('get_header');
-    //get_template_part('templates/header');
 	do_action('get_header' , $IDIES_Web->header_file);
     get_template_part('templates/'.$IDIES_Web->header_file);
   ?>
@@ -24,7 +22,6 @@
 
   
 <?php
-	//get_template_part('templates/footer'); 
 	get_template_part('templates/'.$IDIES_Web->footer_file); 
 ?>
 

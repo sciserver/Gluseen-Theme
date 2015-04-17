@@ -3,4 +3,6 @@
 // usually inside or below the splash image area.
 //get_template_part('templates/page', 'header');
 ?>
-<?php get_template_part('templates/content', WEBSITE.'-front-page'); ?>
+<?php 
+get_template_part('templates/content', WEBSITE.'-front-page'); 
+?>

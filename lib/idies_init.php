@@ -109,6 +109,11 @@ add_action('widgets_init', 'idies_widgets_init' );
 function idies_add_query_vars_filter( $vars ){
   $vars[] = "action";
   $vars[] = "cfc";
+  $vars[] = "target";
+  $vars[] = "which";
+  for ($indx=1; $indx<100; $indx++) $vars[] = "idies-form-" . $indx;
   return $vars;
 }
 add_filter( 'query_vars', 'idies_add_query_vars_filter' );
+
+
