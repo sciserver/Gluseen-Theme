@@ -61,6 +61,7 @@ if ( $current_user_bio_id = get_idies_speaker_bio( $current_user->ID , 'speaker-
 		<a href='?action=add&cfc=<?php echo $current_user_cfc; ?>' class='btn btn-primary alignright'>Add</a><h2>My <?php echo "$form_name"; ?></h2>
 <?php
 		show_speaker_bio( $this_speaker , $current_user_cfc);
+		
 	endif;
 	
 	//  ** EDIT **  //
@@ -71,7 +72,7 @@ if ( $current_user_bio_id = get_idies_speaker_bio( $current_user->ID , 'speaker-
 ?>
 <div class="<?php echo $current_user_cfc; ?>-form">
 <form method="POST"  enctype="multipart/form-data" action="?action=submit&cfc=<?php echo $current_user_cfc; ?>">
-<a class="btn btn-warning alignright" href="?action=view&cfc=<?php echo $current_user_cfc; ?>">Cancel</a><a class="btn btn-danger alignright" href="?action=edit&cfc=<?php echo $current_user_cfc; ?>">Reset</a><button type="submit" class="btn btn-primary alignright">Submit</button><h2><?php echo "$form_name"; ?></h2>
+<a class="btn btn-warning alignright" href="?action=view&cfc=<?php echo $current_user_cfc; ?>">Cancel</a><a class="btn btn-danger alignright" href="?action=add&cfc=<?php echo $current_user_cfc; ?>">Reset</a><button type="submit" class="btn btn-primary alignright">Submit</button><h2><?php echo "$form_name"; ?></h2>
 
 <?php
 		$this_form_field_num = 1;
@@ -118,7 +119,7 @@ if ( $current_user_bio_id = get_idies_speaker_bio( $current_user->ID , 'speaker-
 		}
 ?>
 <a class="btn btn-warning" href="?action=view&cfc=<?php echo $current_user_cfc; ?>">Cancel</a>
-<a class="btn btn-danger" href="?action=edit&cfc=<?php echo $current_user_cfc; ?>">Reset</a>
+<a class="btn btn-danger" href="?action=add&cfc=<?php echo $current_user_cfc; ?>">Reset</a>
 <button type="submit" class="btn btn-primary">Submit</button>
 </form>		
 </div>

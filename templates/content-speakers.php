@@ -20,6 +20,7 @@ if ( get_idies_login( 'speakers' ) ) {
 } else {
 ?>	
 	<div class="well well-sm well-danger alignleft">Speakers must log in to view and or edit their biography and attachments.</div>
+	<a class="btn btn-primary alignleft" href="http://test.idies.jhu.edu/symposium/wp-login.php?action=lostpassword">Forgot password?</a>
 <?php
 }
 ?>

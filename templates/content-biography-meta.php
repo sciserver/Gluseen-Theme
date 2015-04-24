@@ -45,7 +45,7 @@ if ( $current_user_bio_id = get_idies_speaker_bio( $current_user->ID , 'speaker-
 	if ( ( strcmp( 'view' , $current_user_action ) === 0 ) || ( strcmp( 'submit' , $current_user_action ) === 0 ) ) :
 	
 		//clean up the speaker bio to display it
-		$this_speaker = clean_speaker_bio_meta( $this_speaker );
+		//$this_speaker = clean_speaker_bio_meta( $this_speaker );
 ?>
 		<a href='?action=edit&cfc=<?php echo $current_user_cfc; ?>' class='btn btn-primary alignright'>Edit</a><h2>My <?php echo "$form_name"; ?></h2>
 <?php

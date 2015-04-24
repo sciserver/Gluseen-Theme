@@ -101,11 +101,11 @@ function clean_speaker_bio_meta( $this_speaker , $this_cfc = 'biography-meta') {
 
 /*
  *
- * Combine Speaker Bio Fields, and post an warning 'Empty'  if necessary.
+ * Combine Speaker Biography Fields, and post an warning 'Empty'  if necessary.
  * This allows for combining multi-select lists, radios, etc., with optional write in text fields.
  * 
  */
-function idies_combine_fields( $first_var , $second_var , $warning ) {	
+function idies_combine_fields( $first_var , $second_var , $field_title ) {	
 	
 	if ( !empty( $first_var ) ) {	
 		if ( is_array( $first_var ) ) $first_var = implode( ', ', $first_var );
@@ -116,7 +116,7 @@ function idies_combine_fields( $first_var , $second_var , $warning ) {
 	} elseif ( !empty( $second_var ) ) {
 		$first_var = $second_var ;
 	} else {
-		$first_var = empty_warning( $warning );
+		$first_var = empty_warning(  );
 	}
 	return $first_var;
 	
@@ -125,8 +125,8 @@ function idies_combine_fields( $first_var , $second_var , $warning ) {
 /*
  * If field is Empty or other error, display warning.
  */
-function empty_warning( $field_name, $status = 'Empty' ) {
-	return "<span class='text-warning'><strong>Warning: $field_name $status.</strong></span>";
+function empty_warning( $status = 'Empty' ) {
+	return "<span class='text-warning'><em> - $status - </em></span>";
 }
 
 /*
@@ -207,7 +207,7 @@ function get_idies_speaker_bio( $idies_id , $idies_cpt ) {
 	
 	foreach( $all_idies_login_cpt as $key => $value) {
 		$idies_post_meta = get_post_meta( $value->ID , 'biography-meta');
-		if (empty($idies_post_meta)) continue;
+		if (empty($idies_post_meta[0][0]['userid'])) continue;
 		$this_user_id = $idies_post_meta[0][0]['userid'] ;
 		if ( strcmp( $idies_id , $this_user_id ) === 0 ) return $value->ID ;
 	}
@@ -216,7 +216,12 @@ function get_idies_speaker_bio( $idies_id , $idies_cpt ) {
 }
 
 function show_speaker_bio( $this_speaker , $this_cfc) {
-	if (empty($this_speaker)) return;
+	global $all_bio_cfcs;
+	
+	if (empty($this_speaker)) {
+		echo empty_warning( 'No ' . array_search( $this_cfc , $all_bio_cfcs ) . ' found ') ;
+		return false;
+	} 
 	
 	switch ($this_cfc) {
 	
@@ -224,16 +229,20 @@ function show_speaker_bio( $this_speaker , $this_cfc) {
 ?>
 			<div class="row">
 				<div class="col-xs-12">
-					<p><strong><?php echo $this_speaker['display-name']; ?>, <?php echo $this_speaker['degrees']; ?></strong></p>
-					<p><?php echo $this_speaker['title']; ?></p>
-					<p><strong>Department or Center: </strong><?php echo $this_speaker['departments-or-centers']; ?></p>
-					<p><strong>Division or School: </strong><?php echo $this_speaker['division-or-school']; ?></p>
+					<p><strong>Name: </strong><?php echo $this_speaker['display-name']; ?></p>
+					<p><strong>Degrees: </strong><?php echo join(', ',$this_speaker['degrees']); ?></p>
+					<p><strong>Other Degrees: </strong><?php echo $this_speaker['other-degrees']; ?></p>
+					<p><strong>Title: </strong><?php echo $this_speaker['title']; ?></p>
+					<p><strong>Other Titles: </strong><?php echo $this_speaker['other-titles']; ?></p>
+					<p><strong>Department or Center: </strong><?php echo join(', ',$this_speaker['departments-or-centers']); ?></p>
+					<p><strong>Other Affiliations: </strong><?php echo $this_speaker['other-affiliations']; ?></p>
+					<p><strong>Division or School: </strong><?php echo join(', ',$this_speaker['division-or-school']); ?></p>
 					<p><strong>Institution: </strong><?php echo $this_speaker['institutional-affiliation']; ?></p>
 					<p><strong>Biography: </strong><?php echo wp_trim_words( $this_speaker['biography'], 40); ?></p>
 					<?php if ( strcmp( $this_speaker['biography'] , wp_trim_words( $this_speaker['biography'] , 40) ) !== 0 ) : ?>
-					<p><?php echo empty_warning('Biography','Overflow') ; ?></p>
+					<p><?php echo empty_warning('Overflow') ; ?></p>
 					<?php elseif ( empty( $this_speaker['biography'] ) ) : ?>
-					<p><?php echo empty_warning('Biography') ; ?></p>
+					<p><?php echo empty_warning( ) ; ?></p>
 					<?php endif ; ?>
 					<p><strong>Social Media and Contact Info:</strong></p>
 					<dl class="dl-horizontal">
@@ -316,7 +325,7 @@ function show_speaker_bio( $this_speaker , $this_cfc) {
 ?></table><?php 
 			break;
 	}
-	return ; 
+	return true; 
 }
 
 /* 
@@ -331,10 +340,19 @@ function get_speaker_status( $this_speaker_id , $this_bio_id, $this_cfc ) {
 	
 	// Populate Status Array
 	$this_status_array['display_name'] = $this_user->data->display_name ;
-	$this_status_array['status'] = ( empty( $this_post_meta[0][0]['status'] ) ) ? 'Not Started' : $this_post_meta[0][0]['status'] ;
+	
+	// If the status doesn't exist at all, the form hasn't been started. 
+	// If it exists, the form has been started. 
+	// If it's filled in with anything other than Not Started, keep the status.
+	if ( empty( $this_post_meta[0] ) ) : $this_status_array['status'] = "Not Started" ;
+	elseif ( empty( $this_post_meta[0][0] ) ) : $this_status_array['status'] = "Not Started" ;
+	elseif ( empty( $this_post_meta[0][0]['status'] ) ) : $this_status_array['status'] = "Started" ;
+	elseif ( strcmp( 'Not Started' , $this_post_meta[0][0]['status'] ) === 0 ) : $this_status_array['status'] = "Started" ;
+	else : $this_status_array['status'] = $this_post_meta[0][0]['status'] ;
+	endif ;
+	
 	$this_status_array['notes'] = ( empty( $this_post_meta[0][0]['notes'] ) ) ? '' : $this_post_meta[0][0]['notes'] ;
 
-	//
 	switch ($this_status_array['status']) {
 		case 'Not Started' :
 			$this_status_array['panel'] = 'panel-danger'; 
@@ -600,3 +618,25 @@ function idies_report_error( $msg ){
 	return true;
 }
 
+// Add an IDIES dashboard Widget.
+function idies_add_dashboard_widgets() {
+
+	wp_add_dashboard_widget(
+                 'idies_dashboard_widget',         // Widget slug.
+                 'IDIES Shortcuts',         // Title.
+                 'idies_dashboard_widget_contents' // Display function.
+        );	
+}
+add_action( 'wp_dashboard_setup', 'idies_add_dashboard_widgets' );
+
+/**
+ * Add a button linking the Speaker To Do List to the Dashboard Widget.
+ */
+function idies_dashboard_widget_contents() {
+
+	// Display whatever it is you want to show.
+	echo "<div class='wrap'>";
+	echo "<a href='http://test.idies.jhu.edu/symposium/speakers/' class='button-primary'>Speakers: Go to your To Do List</a>";
+	echo "</div>";
+	
+}
