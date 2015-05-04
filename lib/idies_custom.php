@@ -33,6 +33,7 @@ function get_speaker_bio_meta( $this_speaker_bio_id , $this_cfc ) {
 			$this_speaker['display-name'] = get_cfc_field( $this_cfc , 'display-name' , $this_speaker_bio_id );
 			$this_speaker['degrees'] = get_cfc_field( $this_cfc , 'degrees' , $this_speaker_bio_id );
 			$this_speaker['other-degrees'] = get_cfc_field( $this_cfc , 'other-degrees' , $this_speaker_bio_id );
+			$this_speaker['talk-title'] = get_cfc_field( $this_cfc , 'talk-title' , $this_speaker_bio_id );
 			$this_speaker['title'] = get_cfc_field( $this_cfc , 'title' , $this_speaker_bio_id );
 			$this_speaker['other-titles'] = get_cfc_field( $this_cfc , 'other-titles' , $this_speaker_bio_id );
 			$this_speaker['departments-or-centers'] = get_cfc_field( $this_cfc , 'departments-or-centers' , $this_speaker_bio_id );
@@ -232,6 +233,7 @@ function show_speaker_bio( $this_speaker , $this_cfc) {
 					<p><strong>Name: </strong><?php echo $this_speaker['display-name']; ?></p>
 					<p><strong>Degrees: </strong><?php echo join(', ',$this_speaker['degrees']); ?></p>
 					<p><strong>Other Degrees: </strong><?php echo $this_speaker['other-degrees']; ?></p>
+					<p><strong>Talk Title: </strong><?php echo $this_speaker['talk-title']; ?></p>
 					<p><strong>Title: </strong><?php echo $this_speaker['title']; ?></p>
 					<p><strong>Other Titles: </strong><?php echo $this_speaker['other-titles']; ?></p>
 					<p><strong>Department or Center: </strong><?php echo join(', ',$this_speaker['departments-or-centers']); ?></p>
