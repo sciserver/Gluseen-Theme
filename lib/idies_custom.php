@@ -29,7 +29,7 @@ function get_speaker_bio_meta( $this_speaker_bio_id , $this_cfc ) {
 	
 		case 'biography-meta':
 		
-			// Get speaker info from $this_cfc cfc in 'speaker-bio' cpt
+			// Get speaker info from $this_cfc cfc in 'speaker' cpt
 			$this_speaker['display-name'] = get_cfc_field( $this_cfc , 'display-name' , $this_speaker_bio_id );
 			$this_speaker['degrees'] = get_cfc_field( $this_cfc , 'degrees' , $this_speaker_bio_id );
 			$this_speaker['other-degrees'] = get_cfc_field( $this_cfc , 'other-degrees' , $this_speaker_bio_id );

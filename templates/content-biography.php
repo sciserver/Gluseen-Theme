@@ -27,7 +27,7 @@ if ( get_idies_login( 'speakers' ) ) {
 
 //   else if_admin
 } elseif ( current_user_can( 'edit_others_posts' ) ) {
-	if ( idies_report_error('Please edit <a href=\"http://test.idies.jhu.edu/symposium/wp-admin/edit.php?post_type=speaker-bio\" >Speaker Biographies</a> from the WordPress Admin Interface.') ) return;
+	if ( idies_report_error('Please edit <a href=\"http://test.idies.jhu.edu/symposium/wp-admin/edit.php?post_type=speaker\" >Speaker Biographies</a> from the WordPress Admin Interface.') ) return;
 } else {
 	if ( idies_report_error('Speakers must log in to view and or edit their biography and attachments.') ) return;
 }

@@ -23,7 +23,7 @@ if ( !$form_name = array_search( $current_user_cfc , $all_bio_cfcs ) ) {
 <hr>
 <?php
 // Check if user logged in and a speaker and has a biography to edit.
-if ( $current_user_bio_id = get_idies_speaker_bio( $current_user->ID , 'speaker-bio' ) ) {
+if ( $current_user_bio_id = get_idies_speaker_bio( $current_user->ID , 'speaker' ) ) {
 
 	$this_speaker_info = get_user_by( 'id' , $current_user->ID);
 	

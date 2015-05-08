@@ -14,7 +14,7 @@ if ( get_idies_login( 'speakers' ) ) {
 //   else if_admin
 } elseif ( current_user_can('edit_others_posts') ) {
 ?>
-	<div class="well well-sm well-danger alignleft">Please edit <a href='http://test.idies.jhu.edu/symposium/wp-admin/edit.php?post_type=speaker-bio' >Speaker Biographies</a> from the WordPress Admin Interface.</div>
+	<div class="well well-sm well-danger alignleft">Please edit <a href='http://test.idies.jhu.edu/symposium/wp-admin/edit.php?post_type=speaker' >Speaker Biographies</a> from the WordPress Admin Interface.</div>
 <?php 
 
 } else {

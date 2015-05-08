@@ -11,7 +11,7 @@ $all_bio_cfcs = array('Biography' => 'biography-meta' ,
 if ( !$idies_todos = get_cfc_meta( 'speaker-to-do-meta' ) ) return;
 
 // Check if user logged in and a speaker and has a biography to edit.
-if ( $current_user_bio_id = get_idies_speaker_bio( $current_user->ID , 'speaker-bio' ) ) {
+if ( $current_user_bio_id = get_idies_speaker_bio( $current_user->ID , 'speaker' ) ) {
 
 ?>
 <p><span class="text-info x-large"><em>Thank you</em></span> for agreeing to speak at the Institute for Data Intensive Engineering and Science's 2015 Symposium! </p>
