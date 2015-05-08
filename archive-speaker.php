@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: All Speaker Biographies with Side Menu
+Template Name: Speaker Biographies with Side Menu
 */
 ?>
 
