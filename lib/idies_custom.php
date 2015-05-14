@@ -6,7 +6,10 @@
  */
 function get_speaker_cfc_form( $the_cfc ) {
 
-	$speaker_cfc_post = get_posts( array ('name' => $the_cfc , 'post_type' => 'wck-meta-box' ) );
+	$speaker_cfc_post = get_posts( array ('name' => $the_cfc , 
+										'post_type' => 'wck-meta-box',
+										'numberposts' => -1 ,
+										) );
 	$speaker_cfc_post_meta_args = get_post_meta( $speaker_cfc_post[0]->ID , 'wck_cfc_args' , true);
 	$speaker_cfc_post_meta_fields = get_post_meta( $speaker_cfc_post[0]->ID , 'wck_cfc_fields' , true);	
 
@@ -204,8 +207,12 @@ function get_idies_speaker_id(  ) {
  */
 function get_idies_speaker_bio( $idies_id , $idies_cpt ) {
 
-	$all_idies_login_cpt = get_posts( array( 'post_type' => $idies_cpt,) );
-	
+	$all_idies_login_cpt = get_posts( array( 'post_type' => $idies_cpt,
+										'post_status' => 'publish' ,
+										'numberposts' => -1 ,
+									) 
+								);
+
 	foreach( $all_idies_login_cpt as $key => $value) {
 		$idies_post_meta = get_post_meta( $value->ID , 'biography-meta');
 		if (empty($idies_post_meta[0][0]['userid'])) continue;
