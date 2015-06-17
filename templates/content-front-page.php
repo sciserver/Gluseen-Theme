@@ -1,33 +1,36 @@
 <?php 
+
 //This is where the carousel, h1 and description goes. 
+if ( function_exists( 'get_cfc_meta' ) ) : 
+	$slideshow = get_cfc_meta( 'splash_slideshow' ); 
+	if ( count( $slideshow ) ) : 
 ?>
 <section class="splash-slides" >
-<div id="splash-carousel" class="carousel slide" data-ride="carousel">
+<div id="splash-carousel" class="carousel carousel-fade slide" data-ride="carousel">
 <div class="carousel-inner" role="listbox">
-<?php if ( function_exists( 'get_cfc_meta' ) ) : 
-	$slideshow = get_cfc_meta( 'splash_slideshow' ); 
+<?php 
 	$slide_class = 'item active'; 
 	foreach( get_cfc_meta( 'splash_slideshow' ) as $key => $value ) : ?>
 		<div class="<?php echo $slide_class; ?>">
-		<!--img src="<?php the_cfc_field( 'splash_slideshow','background-image', false, $key ); ?>" width="100%" height="auto" /-->
+	
 		 <div style="background:url(<?php the_cfc_field( 'splash_slideshow','background-image', false, $key ); ?>) center center; 
           background-size:cover;" class="slider-size">
-		  <div class="intro-message container">
-		<?php if ( 'posts' == get_option( 'show_on_front' ) ) {
-			include( get_home_template() );
-		} else {
-			include( get_page_template() );
-		} ?>
-		<hr>
-		</div>
 		<div class="carousel-caption"><?php the_cfc_field('splash_slideshow', 'caption', false, $key); ?></div>
 		</div>
 		</div>
 		<?php $slide_class = 'item'; ?>
 	<?php endforeach; ?>
-<?php endif; ?>
 </div>
   <!-- Controls -->
+		  <div class="intro-message container">
+<?php 
+if (have_posts()) : 
+	the_post(); 
+	get_template_part('templates/page', 'header');
+	the_content(); 
+endif; 
+?>
+		</div>
   <a class="left carousel-control" href="#splash-carousel" role="button" data-slide="prev">
     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
     <span class="sr-only">Previous</span>
@@ -38,6 +41,20 @@
   </a>
 </div>
 </section>
+<?php
+	else :
+		?><!-- No slides --><?php
+	endif;
+else :
+?><!-- Function get_cfc_meta doesn't exist - WCK plugin not installed. --><?php
+endif;
+// show front page content
+?>
+<?php while (have_posts()) : the_post(); ?>
+<?php the_content(); ?>
+<?php endwhile; 
+// show news feeds: jobs, funding, events, etc.
+?>
 <section class="splash-widgets" >
 	<div class="container">
 		<hr />

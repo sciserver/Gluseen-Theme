@@ -9424,30 +9424,32 @@ footer.pagefooter p {
   color: #c3c3c3;
   margin-bottom: 16px;
 }
-footer.pagefooter div.sidebar-footer-2 img {
+footer.pagefooter div.sidebar-footer-1 img.logo {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 @media (max-width: 767px) {
-  footer.pagefooter div.sidebar-footer-2 img {
+  footer.pagefooter div.sidebar-footer-1 img.logo {
     display: none !important;
   }
 }
 @media (min-width: 768px) and (max-width: 991px) {
-  footer.pagefooter div.sidebar-footer-2 img {
+  footer.pagefooter div.sidebar-footer-1 img.logo {
     display: none !important;
   }
 }
 @media (min-width: 992px) {
-  footer.pagefooter div.sidebar-footer-2 img {
+  footer.pagefooter div.sidebar-footer-1 img.logo {
     float: left;
     width: 66.66666667%;
   }
 }
 @media (min-width: 992px) {
-  footer.pagefooter div.sidebar-footer-2 img {
+  footer.pagefooter div.sidebar-footer-1 img.logo {
     margin-left: 16.66666667%;
   }
 }
@@ -9512,19 +9514,27 @@ footer.pagefooter div.sidebar-footer-3 img.img-tall {
     width: 33.33333333%;
   }
 }
-footer.pagefooter div.sidebar-footer-4 img {
+footer.pagefooter div.sidebar-footer-2 img.social {
   height: 36px;
   width: 36px;
   margin: 3px;
   display: inline-block;
   vertical-align: top;
 }
-footer.pagefooter div.sidebar-footer-4 i {
+footer.pagefooter div.sidebar-footer-2 i {
   margin: 0 3px;
 }
 /* ================================================
    FrontPage
    ================================================ */
+body.home section.splash-slides {
+  /*
+			  Bootstrap Carousel Fade Transition (for Bootstrap 3.3.x)
+			  CSS from:       http://codepen.io/transportedman/pen/NPWRGq
+			  and:            http://stackoverflow.com/questions/18548731/bootstrap-3-carousel-fading-to-new-slide-instead-of-sliding-to-new-slide
+			  Inspired from:  http://codepen.io/Rowno/pen/Afykb 
+			*/
+}
 body.home section.splash-slides .carousel {
   height: 492px;
   /* This is your full carousel height */
@@ -9533,12 +9543,37 @@ body.home section.splash-slides .carousel {
   margin: 0 					auto;
   /* center your carousel if other than 100% */
 }
-body.home section.splash-slides .carousel-control.left,
-body.home section.splash-slides .carousel-control.right,
-body.home section.splash-slides .carousel-control.left:hover,
-body.home section.splash-slides .carousel-control.right:hover,
-body.home section.splash-slides .carousel-control.left:focus,
-body.home section.splash-slides .carousel-control.right:focus {
+body.home section.splash-slides .carousel.carousel-fade .carousel-inner .item {
+  opacity: 0;
+  -webkit-transition-property: opacity;
+       -o-transition-property: opacity;
+          transition-property: opacity;
+}
+body.home section.splash-slides .carousel.carousel-fade .carousel-inner .active {
+  opacity: 1;
+}
+body.home section.splash-slides .carousel.carousel-fade .carousel-inner .active.left,
+body.home section.splash-slides .carousel.carousel-fade .carousel-inner .active.right {
+  left: 0;
+  opacity: 0;
+  z-index: 1;
+  -webkit-transform: none;
+      -ms-transform: none;
+       -o-transform: none;
+          transform: none;
+}
+body.home section.splash-slides .carousel.carousel-fade .carousel-inner .next.left,
+body.home section.splash-slides .carousel.carousel-fade .carousel-inner .prev.right {
+  opacity: 1;
+  -webkit-transform: none;
+      -ms-transform: none;
+       -o-transform: none;
+          transform: none;
+}
+body.home section.splash-slides .carousel.carousel-fade .carousel-control {
+  z-index: 2;
+}
+body.home section.splash-slides .carousel-control {
   background-image: none;
 }
 body.home section.splash-slides .carousel-control .glyphicon-chevron-left {
@@ -9563,6 +9598,10 @@ body.home section.splash-slides .slider-size {
   /* This is your slider height */
 }
 body.home section.splash-slides .intro-message {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
   padding-top: 10%;
   max-width: 90%;
   margin: 0 auto;
@@ -9577,6 +9616,7 @@ body.home section.splash-slides .intro-message .page-header h1 {
   color: #eeeeee;
   margin: 0;
   text-align: center;
+  font-size: 48px;
 }
 body.home section.splash-slides .intro-message p {
   padding-top: 10px;
@@ -9596,6 +9636,97 @@ body.home section.splash-slides .intro-message p {
 }
 body.home section.splash-slides hr {
   width: 50%;
+}
+body.home section.splash-widgets div.show-posts div.show-post-excerpt {
+  min-height: 20px;
+  padding: 19px;
+  margin-bottom: 20px;
+  background-color: #f5f5f5;
+  border: 1px solid #e3e3e3;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+  padding: 9px;
+  border-radius: 3px;
+}
+body.home section.splash-widgets div.show-posts div.show-post-excerpt blockquote {
+  border-color: #ddd;
+  border-color: rgba(0, 0, 0, 0.15);
+}
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-primary {
+  background-color: #5189bc;
+  border-color: #274866;
+}
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-primary p,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-primary h1,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-primary h2,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-primary h3,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-primary h4,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-primary h5,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-primary h6,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-primary blockquote,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-primary a {
+  color: #ffffff;
+}
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-info {
+  background-color: #5153bc;
+  border-color: #272966;
+}
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-info p,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-info h1,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-info h2,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-info h3,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-info h4,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-info h5,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-info h6,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-info blockquote,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-info a {
+  color: #222222;
+}
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-success {
+  background-color: #51bcb9;
+  border-color: #276665;
+}
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-success p,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-success h1,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-success h2,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-success h3,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-success h4,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-success h5,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-success h6,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-success blockquote,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-success a {
+  color: #222222;
+}
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-warning {
+  background-color: #bc5153;
+  border-color: #662729;
+}
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-warning p,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-warning h1,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-warning h2,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-warning h3,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-warning h4,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-warning h5,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-warning h6,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-warning blockquote,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-warning a {
+  color: #222222;
+}
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-danger {
+  background-color: #bcb951;
+  border-color: #666527;
+}
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-danger p,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-danger h1,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-danger h2,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-danger h3,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-danger h4,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-danger h5,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-danger h6,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-danger blockquote,
+body.home section.splash-widgets div.show-posts div.show-post-excerpt.well-danger a {
+  color: #222222;
 }
 body.home section.splash-explore {
   background-color: #274866;
@@ -10056,8 +10187,28 @@ body div.universe div.carousel-inner div.carousel-caption.carousel-caption-light
    Forms
    ================================================ */
 /* ================================================
+   WCK LILO 
+   ================================================ */
+div#wck-fep-login-form form > ul {
+  list-style-type: none ;
+}
+div#wck-fep-login-form form > ul > li > label {
+  width: 10%;
+}
+div#wck-fep-login-form form > ul > li > div > input#rememberme[type="checkbox"] {
+  display: inline;
+}
+div#wck-fep-login-form form > ul > li > div > label#label-remember-me {
+  display: inline;
+}
+/* ================================================
    DropDown 
    ================================================ */
+ul.dropdown-menu > li > a > hr {
+  margin-top: 0;
+  margin-bottom: 0;
+  width: 80%;
+}
 /* ================================================
    Buttons
    ================================================ */

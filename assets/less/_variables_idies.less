@@ -138,11 +138,13 @@ footer.pagefooter {
 		color: 				@gray-paler;
 		margin-bottom:		16px;
 	}
-	div.sidebar-footer-2 img {
+	div.sidebar-footer-1 img.logo {
 		.hidden-xs;
 		.hidden-sm;
 		.make-md-column(8);
 		.make-md-column-offset(2);
+		margin-top:20px;
+		margin-bottom:20px;
 	}	
 	div.sidebar-footer-3 img {
 		padding:10px 	0;
@@ -160,8 +162,8 @@ footer.pagefooter {
 			.make-md-column(4);
 		}
 	}
-	div.sidebar-footer-4 {
-		img {
+	div.sidebar-footer-2 {
+		img.social {
 			height:36px;
 			width:36px;
 			margin: 3px;
@@ -185,12 +187,41 @@ footer.pagefooter {
 				width:						100%;
 				margin:0 					auto; 			/* center your carousel if other than 100% */ 
 			}
-			.carousel-control.left, .carousel-control.right, 
-			.carousel-control.left:hover, .carousel-control.right:hover, 
-			.carousel-control.left:focus, .carousel-control.right:focus {
-				background-image:			none;
+
+			/*
+			  Bootstrap Carousel Fade Transition (for Bootstrap 3.3.x)
+			  CSS from:       http://codepen.io/transportedman/pen/NPWRGq
+			  and:            http://stackoverflow.com/questions/18548731/bootstrap-3-carousel-fading-to-new-slide-instead-of-sliding-to-new-slide
+			  Inspired from:  http://codepen.io/Rowno/pen/Afykb 
+			*/
+			.carousel.carousel-fade .carousel-inner .item {
+			  opacity: 0;
+			  transition-property: opacity;
 			}
+
+			.carousel.carousel-fade .carousel-inner .active {
+			  opacity: 1;
+			}
+
+			.carousel.carousel-fade .carousel-inner .active.left,
+			.carousel.carousel-fade .carousel-inner .active.right {
+			  left: 0;
+			  opacity: 0;
+			  z-index: 1;
+			  transform:none;
+			}
+
+			.carousel.carousel-fade .carousel-inner .next.left,
+			.carousel.carousel-fade .carousel-inner .prev.right {
+			  opacity: 1;
+			  transform:none;
+			}
+
+			.carousel.carousel-fade .carousel-control {
+			  z-index: 2;
+			}				
 			.carousel-control {
+				background-image:			none;
 				& .glyphicon-chevron-left {
 					margin-left: 				-50%;
 				}
@@ -213,6 +244,10 @@ footer.pagefooter {
 				height: 					492px; /* This is your slider height */
 			}
 			.intro-message {
+				position:absolute;
+				top:0;
+				right:0;
+				left:0;
 				padding-top: 				10%;
 				max-width:					90%;
 				margin: 0 auto;
@@ -225,6 +260,7 @@ footer.pagefooter {
 						color: 				@gray-lighter;
 						margin:				0;
 						.text-center;
+						font-size:			48px;
 					}
 				}
 				p {
@@ -240,6 +276,21 @@ footer.pagefooter {
 				width:						50%;
 			}
 		}
+		
+		section.splash-widgets {
+			div.show-posts {
+				h3{
+				}
+				a>h4{
+				}
+				div.show-post-excerpt{
+					.well;
+					.well-sm;
+				}
+			}
+			
+		}
+		
 		section.splash-explore {
 			background-color: @brand-primary-darker;
 			border-top: 					3px solid #222;
@@ -413,9 +464,32 @@ body div.universe {
 }
 
 /* ================================================
+   WCK LILO 
+   ================================================ */
+div#wck-fep-login-form form>ul{
+	list-style-type:none ;
+}
+div#wck-fep-login-form form>ul>li>label{
+	width: 10%;
+}
+div#wck-fep-login-form form>ul>li>div {
+	>input#rememberme[type="checkbox"]{
+		display:inline;
+	}
+	>label#label-remember-me{
+		display:inline;
+	}
+}
+
+/* ================================================
    DropDown 
    ================================================ */
-
+ul.dropdown-menu>li>a>hr {
+  margin-top: 0;
+  margin-bottom: 0;
+  width: 80%;
+}
+ 
 /* ================================================
    Buttons
    ================================================ */

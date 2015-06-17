@@ -6,4 +6,5 @@
 	<?php endif; ?>
 	<?php wp_link_pages(array('before' => '<nav class="pagination">', 'after' => '</nav>')); ?>
 <?php endwhile; ?>
+<?php get_template_part('templates/content', 'wells'); ?>
 <?php get_template_part('templates/content', 'faq'); ?>

@@ -24,6 +24,7 @@ $roots_includes = array(
   'lib/gallery.php',         // Custom [gallery] modifications
   'lib/scripts.php',         // Scripts and stylesheets
   'lib/extras.php',          // Custom functions
+  'lib/idies_widgets.php',	 // IDIES widgets //
   'lib/idies_custom.php',	 // IDIES configuration tasks //
 );
 
