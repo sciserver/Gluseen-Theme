@@ -54,6 +54,7 @@ function roots_display_sidebar() {
         'is_404',
 		'is_search',
 		'is_front_page',
+		'is_single',
       ),
       /**
        * Page template checks (via is_page_template())
@@ -62,9 +63,8 @@ function roots_display_sidebar() {
       array(
 	    'front-page.php',
         'no-sidebar.php',
-        'core-archive.php',
-        'carousel-accordion.php',
-
+        //'core-archive.php',
+        //'carousel-accordion.php',
       )
     );
     $display = apply_filters('roots/display_sidebar', $sidebar_config->display);

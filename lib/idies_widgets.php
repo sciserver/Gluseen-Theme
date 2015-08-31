@@ -1,39 +1,75 @@
 <?php
+//Not using this filter currently
 // Replaces the get_the_excerpt "more" text with a button
-function idies_excerpt_more($more) {
-       global $post;
-	return '...<p><a class="btn btn-sm btn-primary" href="'. get_permalink($post->ID) . '"> Read More</a></p>';
+function idies_excerpt_more( $excerpt  ) {
+	if ( has_excerpt() && ! is_attachment() ) 
+		$excerpt  .= '<p><a class="btn btn-primary" href="'. get_permalink($post->ID) . '"> Read More</a></p>';
+	return $excerpt ;
 }
-add_filter('excerpt_more', 'idies_excerpt_more');
+//add_filter('get_the_excerpt', 'idies_excerpt_more');
 
 // use widgets_init action hook to execute custom function
 add_action( 'widgets_init', 'idies_register_widgets' );
 
  //register our widget
 function idies_register_widgets() {
-    register_widget( 'idies_show_posts_by_tag_widget' );
+    register_widget( 'idies_show_posts_by_type_widget' );
 }
-class idies_show_posts_by_tag_widget extends WP_Widget {
- //process the new widget
-    function idies_show_posts_by_tag_widget() {
+class idies_show_posts_by_type_widget extends WP_Widget {
+	
+	//post-type specific display variables
+	private $default_vars = array(
+		'show_date' => true,
+		'blurb_length' => 30,
+		'posts_per_page' => 2,
+		'orderby'=>'date' , 
+		);
+	private $post_vars = array(
+		'show_date' => true,
+		'blurb_length' => 30,
+		'posts_per_page' => 2,
+		'orderby'=>'date' , 
+		);
+	private $jobs_vars = array(
+		'show_date' => true,
+		'blurb_length' => 20,
+		'posts_per_page' => 3,
+		'orderby'=>'date' , 
+		);
+	private $funding_vars = array(
+		'show_date' => false,
+		'blurb_length' => 20,
+		'posts_per_page' => 3,
+		'orderby'=>'rand' , 
+		);
+	private $events_vars = array(
+		'show_date' => false,
+		'blurb_length' => 30,
+		'posts_per_page' => 2,
+		'orderby'=>'date' , 
+		);
+	
+	//process the new widget
+    function idies_show_posts_by_type_widget() {
         $widget_ops = array(
-            'classname' => 'idies_show_posts_by_tag_widget_class',
-            'description' => 'Display posts by tag.'
+            'classname' => 'idies_show_posts_by_type_widget_class',
+            'description' => 'Display posts by type.'
         );
-        $this->WP_Widget( 'idies_show_posts_by_tag_widget', 'IDIES Show Posts by Tag or Category',
+        $this->WP_Widget( 'idies_show_posts_by_type_widget', 'IDIES Show Posts by Type',
             $widget_ops );
     }
 	
 	  //build the widget settings form
     function form($instance) {
-        $defaults = array( 'title' => ''  );
-        $defaults = array( 'tag' => ''  );
+        $defaults = array( 	'title' => '' , 
+							'type' => '' , 
+						 );
         $instance = wp_parse_args( (array) $instance, $defaults );
         $title = $instance['title'];
-        $tag = $instance['tag'];
+        $type = $instance['type'];
         ?>
         <p>Title: <input class="widefat" name="<?php echo $this->get_field_name( 'title' ); ?>"  type="text" value="<?php echo esc_attr( $title ); ?>" /></p>
-        <p>Tag: <input class="widefat" name="<?php echo $this->get_field_name( 'tag' ); ?>"  type="text" value="<?php echo esc_attr( $tag ); ?>" /></p>
+        <p>Type: <input class="widefat" name="<?php echo $this->get_field_name( 'type' ); ?>"  type="text" value="<?php echo esc_attr( $type ); ?>" /></p>
         <?php
     }
 	
@@ -41,41 +77,186 @@ class idies_show_posts_by_tag_widget extends WP_Widget {
     function update($new_instance, $old_instance) {
         $instance = $old_instance;
         $instance['title'] = strip_tags( $new_instance['title'] );
-        $instance['tag'] = strip_tags( $new_instance['tag'] );
+        $instance['type'] = strip_tags( $new_instance['type'] );
 
         return $instance;
     }
 	
 	//display the widget
     function widget($args, $instance) {
-        extract($args);
-
-        $title = empty( $instance['title'] ) ? '&nbsp;' : $instance['title'];
-        $tag = empty( $instance['tag'] ) ? '&nbsp;' : $instance['tag'];
-
-		$tag_query = new WP_Query( array(
-			'post_type' => 'post' ,
-			'posts_per_page' => 3 ,
-			'orderby'=>'date' , 
-			'tag' => $tag , 
-			'post_status' => 'publish')
-		);
 		
-        echo $before_widget;
-		if ( $tag_query->have_posts() ) :
-			echo "<div class='show-posts'>";
-			echo "<h3>" . $title . "</h3>";
-			while ( $tag_query->have_posts() ) : $tag_query->the_post();
-				echo "<a href='" . get_permalink(  ) . "'>";
-				echo "<h4>" . get_the_title(  ) . "</h4>";
-				echo "</a>";
-				echo "<div class='show-post-excerpt'><p>" . get_the_excerpt(  ) . "</p></div>";
-			endwhile;
-			echo "</div>";
-		endif;
-        echo $after_widget;
+		if ( empty( $instance['type'] ) ) return;
+		
+        $type = $instance['type'];
+
+        $args['type'] = $type;
+		$args['title'] = empty( $instance['title'] ) ? '' : "<h3>" . $instance['title'] . "</h3>";
+		
+		$display_vars = ( property_exists( $this , $type . '_vars' ) ) ? $type . "_vars" : 'default_vars';
+		foreach ( $this->$display_vars as $key => $value ) $args[$key] = $value ;
+		$args['archive'] = $this->get_archive_options($type);
+        extract($args);
+		
+		$args['type_query'] = new WP_Query( array(
+			'post_type' => $type ,
+			'posts_per_page' => $posts_per_page ,
+			'orderby'=>$orderby , 
+			'post_status' => 'publish')
+		);		
+		if ( !( $args['type_query']->have_posts() ) ) return;
+
+		echo $before_widget;
+
+		$display_type = ( method_exists( $this , 'show_' . $type ) ) ? 'show_' . $type : 'show_default' ;
+		call_user_func( array( $this , $display_type ) , $args );
+			
+		echo '<div><a class="btn btn-warning pull-right" style="margin-top: 5px; margin-bottom: 10px" href="' . $archive['slug'] . '">' . $archive['title'] . ' Archive</a></div>';
+		echo '<div class="clearfix"></div>';
+
+		echo $after_widget;
+			
+		return;
     }
+
+	function show_default( $args ) {
+		extract( $args );
+		
+		echo "<div class='show-posts'>";
+		echo "<h3>" . $title . "</h3>";
+		while ( $type_query->have_posts() ) : $type_query->the_post();
+			echo "<div class='show-post-excerpt'>";
+			echo "<a href='" . get_permalink(  ) . "'><h4>" . get_the_title(  ) . "</h4></a>";
+			if ($show_date) echo '<p class="show-date"><i class="fa fa-calendar"></i> <strong>Posted: ' . get_the_date() . '</strong></p>';
+			echo "<p>" . get_the_excerpt(  ) . "</p>";
+			echo '<p><a class="btn btn-primary" href="'. get_permalink( get_the_id() ) . '">Read More</a></p>';
+			echo "</div>";
+		endwhile;
+		echo "</div>";
+		
+		return;
+	}
 	
+	function show_post( $args ) {
+		extract( $args );
+		
+		echo "<div class='show-posts'>";
+		echo "<h3>" . $title . "</h3>";
+		while ( $type_query->have_posts() ) : $type_query->the_post();
+			echo "<div class='show-post-excerpt'>";
+			echo "<a href='" . get_permalink(  ) . "'><h4>" . get_the_title(  ) . "</h4></a>";
+			if ($show_date) echo '<p class="show-date"><i class="fa fa-calendar"></i> <strong>Posted: ' . get_the_date() . '</strong></p>';
+			echo "<p>" . wp_trim_words( get_the_excerpt(  ) , $blurb_length ) . "</p>";
+			echo '<p><a class="btn btn-primary" href="'. get_permalink( get_the_id() ) . '">Read More</a></p>';
+			echo "</div>";
+		endwhile;
+		echo "</div>";
+		
+		return;
+	}
 	
+	function show_funding( $args ) {
+		extract( $args );
+		
+		echo "<div class='show-posts'>";
+		echo "<h3>" . $title . "</h3>";
+		
+		$post_count = 0;
+		while ( $type_query->have_posts() && ( $post_count < 3 ) ) : $type_query->the_post();
+			if ( get_cfc_field( $type.'-details' , 'archive-after' ) ) {
+				$archive_after = date_create( get_cfc_field( $type.'-details' , 'archive-after' ) );
+				if ( date_create( NULL ) > $archive_after ) {
+					//set this fopp status to 'draft'
+					endraftinator_ray( get_the_id() );
+					continue;
+				}
+			} else unset($archive_after);
+			echo "<div class='show-post-excerpt'>";
+			echo "<a href='" . get_permalink(  ) . "'><h4>" . get_the_title(  ) . "</h4></a>";
+			if ($show_date) echo '<p class="show-date"><i class="fa fa-calendar"></i>&nbsp;<strong>Added: ' . get_the_date() . '</strong></p>';
+			if ( $the_sponsor = get_cfc_field( $type.'-details' , 'sponsor' ) ) echo '<p><strong>Sponsor: ' . $the_sponsor . '</strong></p>';
+			if ( $deadline_cpt = get_cfc_field( $type.'-details' , 'deadlines' ) ) echo '<p><strong>Deadline(s): ' . $deadline_cpt->post_title . '</strong></p>';
+			echo "<p>" . wp_trim_words( get_the_excerpt(  ) , $blurb_length ) . "</p>";
+			echo '<p><a class="btn btn-primary" href="' . $archive['slug'] . '/#' . get_the_id() . '">Read More</a></p>';
+			echo "</div>";
+			$post_count++;
+		endwhile;
+		echo "</div>";
+		
+		return;	}
+	
+	function show_jobs( $args ) {
+		extract( $args );
+		
+		echo "<div class='show-posts'>";
+		echo "<h3>" . $title . "</h3>";
+		while ( $type_query->have_posts() ) : $type_query->the_post();
+			echo "<div class='show-post-excerpt'>";
+			echo "<a href='" . get_permalink(  ) . "'><h4>" . get_the_title(  ) . "</h4></a>";
+			if ($show_date) echo '<p class="show-date"><i class="fa fa-calendar"></i>&nbsp;<strong> Posted: ' . get_the_date() . '</strong></p>';
+			echo "<p>" . wp_trim_words( get_the_excerpt(  ) , $blurb_length ) . "</p>";
+			if ( $deadline_cpt = get_cfc_field( $type.'-details' , 'closing-date' ) ) echo '<p><strong>Closing Date: ' . $deadline_cpt->post_title . '</strong></p>';
+			echo '<p><a class="btn btn-primary" href="'. get_permalink( get_the_id() ) . '">Read More</a></p>';
+			echo "</div>";
+		endwhile;
+		echo "</div>";
+		
+		return;	}
+	
+	function show_events( $args ) {
+		extract( $args );
+		
+		echo "<div class='show-posts'>";
+		echo "<h3>" . $title . "</h3>";
+		while ( $type_query->have_posts() ) : $type_query->the_post();
+		
+			$location = ( $location = get_cfc_field( $type.'-details' , 'short-location' ) ) ?
+				$location = ' Where: ' . $location :
+				$location = '';
+
+			$event_date = ( $event_date = new DateTime( get_cfc_field( $type.'-details' , 'event-date' ) ) ) ?
+				$event_date = ' When: ' . $event_date->format('F d, Y') :
+				$event_date = '';
+				
+			$event_time = ( $event_time = get_cfc_field( $type.'-details' , 'event-time' ) ) ?
+				$event_time = ', ' . $event_time :
+				$event_time = '';
+
+			echo "<div class='show-post-excerpt'>";
+			echo "<a href='" . get_permalink(  ) . "'><h4>" . get_the_title(  ) . "</h4></a>";
+			echo "<p>" . wp_trim_words( get_the_excerpt(  ) , $blurb_length ) . "</p>";
+			echo "<p>";
+			if ( $location ) echo '<i class="fa fa-map"></i><strong>' . $location . '</strong><br />';
+			if ( $event_date ) echo '<i class="fa fa-calendar"></i><strong>' . $event_date . $event_time . '</strong>';
+			echo "</p>";
+			echo '<p><a class="btn btn-primary" href="'. get_permalink( get_the_id() ) . '">Read More</a></p>';
+			echo "</div>";
+		endwhile;
+		echo "</div>";
+		
+		return;	}
+		// Gets the options for the names of archive pages from the options set in 
+	// the IDIES Options Page.
+	function get_archive_options( $type ) {
+		
+		$archivepages = get_option('archivepages');
+		
+		foreach ($archivepages as $this_option){
+		
+			if ( strcmp( $this_option['post-type'] , $type ) === 0 ) {
+				
+				$archive_options['title'] = $this_option['title'];
+				$archive_options['slug'] = $this_option['archive-slug'];
+				break;
+				
+			} else {
+				
+				$archive_options['title'] = ucfirst( $type );
+				$archive_options['slug'] = $type ;
+				
+			}
+		}
+		
+		return $archive_options;
+    }
 }
 ?>

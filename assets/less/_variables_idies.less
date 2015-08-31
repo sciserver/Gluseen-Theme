@@ -20,21 +20,13 @@ header {
 	.logo {
 		border-top: 3px solid @brand-primary-darkest;
 		border-bottom: 1px solid #ddd;
-		background-image: linear-gradient(90deg,transparent .05em,rgba(0,0,0,.05) .05em,rgba(0,0,0,.05) .125em,transparent .125em), linear-gradient(rgba(0,0,0,.05) .062500em,transparent .062500em);
+		background-image: linear-gradient(90deg,transparent .05em,rgba(0,0,0,.05) .05em,rgba(0,0,0,.05) .125em,transparent .125em),linear-gradient(rgba(0,0,0,.05) .062500em,transparent .062500em);
 		background-size: .75em .75em;
 		background-position: 0 -.5em;
 	}
 
 	.navbar-default {
 	
-		background-color: @brand-primary-dark;
-		border-color: @brand-primary-darkest;
-		
-		background-image: -webkit-linear-gradient(top, @brand-primary-dark 0%, @brand-primary-darkest 100%);
-		background-image: linear-gradient(to bottom, @brand-primary-dark 0%, @brand-primary-darkest 100%);
-		
-		background-repeat: repeat-x;
-		
 		-webkit-box-shadow: 0 0 10px rgba(0,0,0,.8); 
 		-moz-box-shadow: 0 0 10px rgba(0,0,0,.8);
 		box-shadow: 0 0 10px rgba(0,0,0,.8);
@@ -42,24 +34,36 @@ header {
 		font-size: 15px;
 		color: #fff;
 
+		background-color: @brand-primary-dark;
+		border-bottom-width:				0;
+		background: -webkit-linear-gradient(top,@brand-primary-dark 0%,@brand-primary-darkest 100%);
+		background: -moz-linear-gradient(top,@brand-primary-dark 0%,@brand-primary-darkest 100%);
+		background: -o-linear-gradient(top,@brand-primary-dark 0%,@brand-primary-darkest 100%);
+		background: linear-gradient(top,@brand-primary-dark 0%,@brand-primary-darkest 100%);
+			
 		& .navbar-nav {
 			& >li> {
-				& >a, >a:hover, >a:focus, {
+				& >a,>a:hover,>a:focus,{
 					font-size: 15px;
 					color: #fff;
-					text-shadow: 0 1px 0 rgba(255, 255, 255, 0.25);
+					text-shadow: 0 1px 0 rgba(255,255,255,0.25);
 				}
 			}
-			& >.active, >.activated, >.open {
-				& >a, >a:hover, >a:focus, {
+			& >.active,>.activated,>.open {
+				& >a,>a:hover,>a:focus,{
 					color: #fff;
 					background-color: @brand-primary-dark;
 				}
 			}
-			& >.active>a, >.activated>a {
-				background-image: -webkit-linear-gradient(top,@brand-primary-darkest 0,@brand-primary-darker 100%);
-				background-image: linear-gradient(to bottom,@brand-primary-darkest 0,@brand-primary-darker 100%);
-				background-repeat: repeat-x;
+			& >li.active>a,
+			& >li.activated>a, 
+			>li>a:hover, 
+			>li>a:focus {
+				background: -webkit-linear-gradient(top,@brand-primary-darkest 0,@brand-primary-dark 100%);
+				background: -moz-linear-gradient(top,@brand-primary-darkest 0,@brand-primary-dark 100%);
+				background: -o-linear-gradient(top,@brand-primary-darkest 0,@brand-primary-dark 100%);
+				background: linear-gradient(top,@brand-primary-darkest 0,@brand-primary-dark 100%);
+				background-image: linear-gradient(to bottom,@brand-primary-darkest 0,@brand-primary-dark 100%);
 				
 				-webkit-box-shadow: inset 0 3px 9px rgba(0,0,0,.075);
 				-moz-box-shadow: 0 3px 9px rgba(0,0,0,.075);
@@ -67,9 +71,9 @@ header {
 			}
 			& >li>.dropdown-menu {
 				text-align: left;
-				background-color: @brand-primary-darker;
+				background-color: @brand-primary-dark;
 				color: #fff;
-				border: 1px solid rgba(0,0,0,.15);
+				border-top-width: 0px;
 
 				> li > a {
 					padding-left: 10px;
@@ -78,25 +82,16 @@ header {
 				}
 
 				> li > a:hover,
-				> li > a:focus {
-					background-image: -webkit-gradient(linear, left 0%, left 100%, from(@brand-primary-darker), to(@brand-primary-darkest));
-					background-image: -webkit-linear-gradient(top, @brand-primary-darker 0%, @brand-primary-darkest 100%);
-					background-image: -moz-linear-gradient(top, @brand-primary-darker 0%, @brand-primary-darkest 100%);
-					background-image: linear-gradient(to bottom, @brand-primary-darker 0%, @brand-primary-darkest 100%);
-					background-repeat: repeat-x;
-					filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff357def', endColorstr='#ff255682', GradientType=0);
-					background-color: @brand-primary-darkest;
-				}
-				> .active > a,
-				> .active > a:hover,
-				> .active > a:focus {
-				  background-image: -webkit-gradient(linear, left 0%, left 100%, from(@brand-primary-dark), to(@brand-primary-darker));
-				  background-image: -webkit-linear-gradient(top, @brand-primary-dark 0%, @brand-primary-darker 100%);
-				  background-image: -moz-linear-gradient(top, @brand-primary-dark 0%, @brand-primary-darker 100%);
-				  background-image: linear-gradient(to bottom, @brand-primary-dark 0%, @brand-primary-darker 100%);
-				  background-repeat: repeat-x;
-				  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff428bca', endColorstr='#ff357ebd', GradientType=0);
-				  background-color: @brand-primary-darker;
+				> li > a:focus,
+				> li.active > a,
+				> li.active > a:hover,
+				> li.active > a:focus {
+					background-color: @brand-primary-darker;
+					//background: -webkit-linear-gradient(top,@brand-primary-dark 0%,@brand-primary-darkest 100%);
+					//background: -moz-linear-gradient(top,@brand-primary-dark 0%,@brand-primary-darkest 100%);
+					//background: -o-linear-gradient(top,@brand-primary-dark 0%,@brand-primary-darkest 100%);
+					//background: linear-gradient(to bottom,@brand-primary-dark 0%,@brand-primary-darkest 100%);
+					//background-color: @brand-primary-darkest;
 				}
 			}
 		}
@@ -345,9 +340,103 @@ footer.pagefooter {
 /* ================================================
    Body
    ================================================ */
-body.speakers span.label {
-	display:inline-block; 
-	white-space:inherit;
+body.page {
+	div.page-header {
+		h1,.h1 {
+			font-size: 		4em;
+		}
+	}
+	h1,.h1{
+		font-size: 		36px;
+	}
+	p.lead {
+		font-size: 		1.2em !important;
+		margin: 2%;
+	}
+	&.speakers span.label {
+			display:inline-block; 
+			white-space:inherit;
+	}
+	div.panel-heading h2 {
+		font-size: 1.8em;
+	}
+	ul.idies-sub-menu {
+		text-align:		center;
+		margin-bottom:	20px;
+		>li {
+			display: inline-block;
+			padding-left: 10px;
+			padding-right: 10px;
+			a {
+				.btn;
+			}
+		}
+		:nth-child(1)>a {
+			.btn-primary;
+		}
+		:nth-child(2)>a {
+			.btn-warning;
+		}
+		:nth-child(3)>a {
+			.btn-info;
+		}
+		:nth-child(4)>a {
+			.btn-danger;
+		}
+		:nth-child(5)>a {
+			.btn-success;
+		}
+		:nth-child(6)>a {
+			.btn-default;
+		}
+	}
+	.col-heading {
+		.label;
+		.label-default;
+		>* {
+			color:			#ffffff;
+		}
+	}
+	.col-heading-primary {
+		background-color:		@brand-primary;
+	}
+	.col-heading-info {
+		background-color:		@brand-info;
+	}
+	.col-heading-success {
+		background-color:		@brand-success;
+	}
+	.col-heading-warning {
+		background-color:		@brand-warning;
+	}
+	.col-heading-danger {
+		background-color:		@brand-danger;
+	}
+	.col-content-primary {
+		border: @brand-primary solid 1px;
+	}
+	.col-content-info {
+		border: @brand-info solid 1px;
+	}
+	.col-content-success {
+		border: @brand-success solid 1px;
+	}
+	.col-content-warning {
+		border: @brand-warning solid 1px;
+	}
+	.col-content-danger {
+		border: @brand-danger solid 1px;
+	}
+	article {
+		header {
+			i {
+				color:		@brand-primary-dark;
+			}
+		}
+		div.entry-summary {
+			border-left: @brand-primary-dark solid 5px;
+		}
+	}
 }
 
 body div.universe {
@@ -358,16 +447,24 @@ body div.universe {
 		}
 		div.carousel-caption {
 			color: black;
-			text-shadow: 0 2px 2px rgba(0, 0, 0, .4);
+			text-shadow: 0 2px 2px rgba(0,0,0,.4);
 		}
 		div.carousel-caption.carousel-caption-light {
 			color: white;
-			text-shadow: 0 2px 2px rgba(0, 0, 0, .4);
+			text-shadow: 0 2px 2px rgba(0,0,0,.4);
 		}
 	}
 }
 
 /* ================================================
+   Sidebar Widgets
+   ================================================ */
+body.page aside section.widget.widget_ninja_forms_widget {
+	.well;
+	.well-sm;
+}
+
+   /* ================================================
    Archive
    ================================================ */
 
@@ -403,7 +500,7 @@ body div.universe {
 		border-left:		solid 2px transparent;
 		color:				@text-color;
 	}
-	li>a:hover, li>a:focus {
+	li>a:hover,li>a:focus {
 		background-color:	transparent;
 		//border-left:		solid 2px @brand-primary;
 		color:				@link-hover-color;
@@ -414,7 +511,7 @@ body div.universe {
 		border-left:		solid 2px @brand-primary;
 		color:				@link-color;
 	}
-	li.active>a:hover, li.active>a:focus {
+	li.active>a:hover,li.active>a:focus {
 		background-color:	transparent;
 		color:				@link-hover-color;
 		font-weight: 		500;
@@ -431,7 +528,7 @@ body div.universe {
 		background-color:	transparent;
 		border-left:		solid 2px transparent;
 	}
-	li:hover>a, li:focus>a {
+	li:hover>a,li:focus>a {
 		font-weight:		600;
 		background-color:	transparent;
 		border-left:		solid 2px transparent;
@@ -443,7 +540,7 @@ body div.universe {
 		border-left:		solid 2px transparent;
 		color:				inherit;
 	}
-	li:hover.active>a, li:focus.active>a  {
+	li:hover.active>a,li:focus.active>a  {
 		font-weight:		600;
 		background-color:	transparent;
 		border-left:		solid 2px transparent;
@@ -482,6 +579,90 @@ div#wck-fep-login-form form>ul>li>div {
 }
 
 /* ================================================
+   Buttons
+   ================================================ */
+.btn,a.btn {
+	text-shadow: 			0 -2px 0px rgba(0, 0, 0, .4);
+	color:					white;
+		
+	&.btn-primary {
+		background-color:		@brand-primary-dark;
+		border-color:			@brand-primary-darker;
+		background: 			-webkit-linear-gradient(top,@brand-primary-dark,@brand-primary-darker);
+		background: 			-o-linear-gradient(top,@brand-primary-dark,@brand-primary-darker);
+		background: 			-moz-linear-gradient(top,@brand-primary-dark,@brand-primary-darker);
+		background: 			linear-gradient(top,@brand-primary-dark,@brand-primary-darker);
+		&:hover,&:focus {	
+			background-color:	@brand-primary-darker;
+			background: 			-webkit-linear-gradient(top,@brand-primary-dark,@brand-primary-darkest);
+			background: 			-o-linear-gradient(top,@brand-primary-dark,@brand-primary-darkest);
+			background: 			-moz-linear-gradient(top,@brand-primary-dark,@brand-primary-darkest);
+			background: 			linear-gradient(top,@brand-primary-dark,@brand-primary-darkest);
+		}
+	}
+	&.btn-success {
+		background-color:		darken(@brand-success,10%);
+		border-color:			darken(@brand-success,25%);
+		background: 			-webkit-linear-gradient(top,darken(@brand-success,10%),darken(@brand-success,25%));
+		background: 			-o-linear-gradient(top,darken(@brand-success,10%),darken(@brand-success,25%));
+		background: 			-moz-linear-gradient(top,darken(@brand-success,10%),darken(@brand-success,25%));
+		background: 			linear-gradient(top,darken(@brand-success,10%),darken(@brand-success,25%));
+		&:hover,&:focus {	
+			background-color:		darken(@brand-success,25%);
+			background: 			-webkit-linear-gradient(top,darken(@brand-success,10%),darken(@brand-success,40%));
+			background: 			-o-linear-gradient(top,darken(@brand-success,10%),darken(@brand-success,40%));
+			background: 			-moz-linear-gradient(top,darken(@brand-success,10%),darken(@brand-success,40%));
+			background: 			linear-gradient(top,darken(@brand-success,10%),darken(@brand-success,40%));
+		}
+	}
+	&.btn-info {
+		background-color:			darken(@brand-info,10%);
+		border-color:				darken(@brand-info,25%);
+		background: 			-webkit-linear-gradient(top,darken(@brand-info,10%),darken(@brand-info,25%));
+		background: 			-o-linear-gradient(top,darken(@brand-info,10%),darken(@brand-info,25%));
+		background: 			-moz-linear-gradient(top,darken(@brand-info,10%),darken(@brand-info,25%));
+		background: 			linear-gradient(top,darken(@brand-info,10%),darken(@brand-info,25%));
+		&:hover,&:focus {	
+			background-color:		darken(@brand-info,25%);
+			background: 			-webkit-linear-gradient(top,darken(@brand-info,10%),darken(@brand-info,40%));
+			background: 			-o-linear-gradient(top,darken(@brand-info,10%),darken(@brand-info,40%));
+			background: 			-moz-linear-gradient(top,darken(@brand-info,10%),darken(@brand-info,40%));
+			background: 			linear-gradient(top,darken(@brand-info,10%),darken(@brand-info,40%));
+		}
+	}
+	&.btn-warning {
+		background-color:		darken(@brand-warning,10%);
+		border-color:			darken(@brand-warning,25%);
+		background: 			-webkit-linear-gradient(top,darken(@brand-warning,10%),darken(@brand-warning,25%));
+		background: 			-o-linear-gradient(top,darken(@brand-warning,10%),darken(@brand-warning,25%));
+		background: 			-moz-linear-gradient(top,darken(@brand-warning,10%),darken(@brand-warning,25%));
+		background: 			linear-gradient(top,darken(@brand-warning,10%),darken(@brand-warning,25%));
+		&:hover,&:focus {	
+			background-color:			darken(@brand-warning,25%);
+			background: 			-webkit-linear-gradient(top,darken(@brand-warning,10%),darken(@brand-warning,40%));
+			background: 			-o-linear-gradient(top,darken(@brand-warning,10%),darken(@brand-warning,40%));
+			background: 			-moz-linear-gradient(top,darken(@brand-warning,10%),darken(@brand-warning,40%));
+			background: 			linear-gradient(top,darken(@brand-warning,10%),darken(@brand-warning,40%));
+		}
+	}
+	&.btn-danger {
+		background-color:		darken(@brand-danger,10%);
+		border-color:			darken(@brand-danger,25%);
+		background: 			-webkit-linear-gradient(top,darken(@brand-danger,10%),darken(@brand-danger,25%));
+		background: 			-o-linear-gradient(top,darken(@brand-danger,10%),darken(@brand-danger,25%));
+		background: 			-moz-linear-gradient(top,darken(@brand-danger,10%),darken(@brand-danger,25%));
+		background: 			linear-gradient(top,darken(@brand-danger,10%),darken(@brand-danger,25%));
+		&:hover,&:focus {	
+			background-color:			darken(@brand-danger,25%);
+			background: 			-webkit-linear-gradient(top,darken(@brand-danger,10%),darken(@brand-danger,40%));
+			background: 			-o-linear-gradient(top,darken(@brand-danger,10%),darken(@brand-danger,40%));
+			background: 			-moz-linear-gradient(top,darken(@brand-danger,10%),darken(@brand-danger,40%));
+			background: 			linear-gradient(top,darken(@brand-danger,10%),darken(@brand-danger,40%));
+		}
+	}
+}
+
+/* ================================================
    DropDown 
    ================================================ */
 ul.dropdown-menu>li>a>hr {
@@ -491,12 +672,144 @@ ul.dropdown-menu>li>a>hr {
 }
  
 /* ================================================
-   Buttons
+   Tables
    ================================================ */
 
 /* ================================================
-   Tables
+   Wells
    ================================================ */
+.well {
+	background-image: -webkit-linear-gradient(top,#e3e5e7 0,#f1f2f3 100%);
+	background-image: linear-gradient(to bottom,#e3e5e7 0,#f1f2f3 100%);
+	background-repeat: repeat-x;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffe3e5e7',endColorstr='#fff1f2f3',GradientType=0);
+	border-color: #d6d9db;
+	-webkit-box-shadow: inset 0 1px 3px rgba(0,0,0,.05),0 1px 0 rgba(255,255,255,.1);
+	box-shadow: inset 0 1px 3px rgba(0,0,0,.05),0 1px 0 rgba(255,255,255,.1);
+}
+div.wells-group>div.row>div {
+	padding-left:0;
+	padding-right:0;
+}
+/* ================================================
+   Extras
+   ================================================ */
+.external-link>a:after, a.external-link:after {
+	font-family: 			FontAwesome;
+	font-size:				1.3333em;
+	content: 				' \f14c';
+}
+/* ++++++++++++++++++++++++++++++++++++++++++++++++
+   Collapses
+   ++++++++++++++++++++++++++++++++++++++++++++++++ */
+body.page main.main article, 
+body.page.research main.main #accordion {
+	a.article-toggle:before,
+	a[data-toggle="collapse"]:before
+	{
+		font-family: 			FontAwesome;
+		font-size:				1.3333em;
+		color:					@brand-primary-dark;
+		content: 				'\f056 ';
+		padding-right:			10px;
+	}
+	a.article-toggle.collapsed:before , 
+	a[data-toggle="collapse"].collapsed:before 	{
+		content: 				'\f055 ';
+	}
+}
+
+/* ================================================
+   Page Specific
+   ================================================ */
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++
+   Research 
+   ++++++++++++++++++++++++++++++++++++++++++++++++ */
+body.page.research main.main #accordion {
+	.panel.panel-default {
+		border:none;
+		.panel-heading {
+			color:				@brand-primary-dark;
+			a {
+				color:				@brand-primary-dark;
+			}
+			background-color:	inherit;
+			h2, .h2, h3, .h3, h4 {
+				.h4;
+			}
+		}
+		.panel-body {
+			border-left: @brand-primary-dark 3px solid;
+		}
+	}
+}
+/* ++++++++++++++++++++++++++++++++++++++++++++++++
+   Datasets Carousel 
+   ++++++++++++++++++++++++++++++++++++++++++++++++ */
+body.page.datasets main.main #carousel-public {
+	ul.nav.nav-pills.nav-justified {
+		background-color:#eeeeee;
+		li {
+			background-color: #eeeeee;
+			.active {
+				background-color: #eeeeee;
+			}
+			>a{
+				background-color:#eeeeee;
+				color:#255682;
+				text-decoration:none;
+			}
+			>a:focus {
+				outline: none;
+			}
+			>a:hover{
+				color:#333333;
+				font-weight:	bold;
+			}
+		}		
+	}
+	ul.nav.nav-pills.nav-justified.carousel-indicators {
+		background-color:#eeeeee;
+		position: inherit;
+		left:	inherit;
+		bottom:	inherit;
+		width: inherit;
+		margin-left: inherit;
+		padding-left: 0;
+		margin-right: inherit;
+		padding-right: inherit;
+		text-align: inherit;
+		li {
+			position: 	relative;
+			display:	block;
+			float:	none;
+			height:	inherit;
+			margin-bottom:	inherit;
+			text-indent: inherit;
+			border-radius:0;
+			border:	0;
+			background-color: #eeeeee;
+			&:hover{
+			
+			}
+			.active {
+				background-color: #eeeeee;
+			}
+			>a{
+				background-color:#eeeeee;
+				color:#255682;
+				text-decoration:none;
+			}
+			>a:focus {
+				outline: none;
+			}
+			>a:hover{
+				color:#333333;
+			}
+		}		
+	}
+}
 
 /* ================================================
    Content Sections
@@ -524,6 +837,10 @@ ul.dropdown-menu>li>a>hr {
 
 // >=SM
 @media (min-width: @screen-sm-min) {
+	body.page.datasets main.main #carousel-public ul.nav.nav-pills.nav-justified.carousel-indicators>li {
+		display: table-cell;
+		width: 1%;
+	}
 }   
 
 // >=MD
@@ -546,10 +863,24 @@ ul.dropdown-menu>li>a>hr {
 
 // <=SM
 @media (max-width: @screen-sm-max) {
+	body.home {
+		div.page-header {
+			h1,.h1 {
+				font-size: 		2em;
+			}
+		}
+	}
 }
 
 // <=MD
 @media (max-width: @screen-md-max) {
+	body.home {
+		div.page-header {
+			h1,.h1 {
+				font-size: 		3em;
+			}
+		}
+	}
 	.navbar-nav > li > a {
 		padding: 15px 8px;
 	}

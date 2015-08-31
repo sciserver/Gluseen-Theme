@@ -1,5 +1,5 @@
 <?php get_template_part('templates/head'); ?>
-<body <?php body_class(); ?>>
+<body data-spy="scroll"  data-target="#sidebar-nav-spy" <?php body_class(''); ?>>
 
   <!--[if lt IE 8]>
     <div class="alert alert-warning">
@@ -12,7 +12,7 @@
     get_template_part('templates/'.$IDIES_Web->header_file);
   ?>
 
-  <div class="wrap container role="document">
+  <div class="wrap container" role="document">
     <div class="content row">
       <main class="main" role="main">
 		<?php include roots_template_path(); ?>

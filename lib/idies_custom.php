@@ -649,3 +649,12 @@ function idies_dashboard_widget_contents() {
 	echo "</div>";
 	
 }
+
+/**
+ * Aim the endraftinator ray at a post or page.
+ */
+function endraftinator_ray( $post_id ) {
+
+	wp_update_post( array( $post_id , 'post_status' => 'draft', ) );
+
+}
