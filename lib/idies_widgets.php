@@ -50,14 +50,22 @@ class idies_show_posts_by_type_widget extends WP_Widget {
 		);
 	
 	//process the new widget
-    function idies_show_posts_by_type_widget() {
+    /*function idies_show_posts_by_type_widget() {
         $widget_ops = array(
             'classname' => 'idies_show_posts_by_type_widget_class',
             'description' => 'Display posts by type.'
         );
         $this->WP_Widget( 'idies_show_posts_by_type_widget', 'IDIES Show Posts by Type',
             $widget_ops );
-    }
+    }*/
+	function __construct() {
+		parent::__construct(
+			'idies_show_posts_by_type_widget_class', // Base ID
+			__( 'IDIES Display Posts by Type', 'text_domain' ), // Name
+			array( 'description' => __( 'IDIES Display Posts by Custom Post Type', 'text_domain' ), ) 
+		);
+	}
+
 	
 	  //build the widget settings form
     function form($instance) {

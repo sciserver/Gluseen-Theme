@@ -12,9 +12,9 @@
 <?php 		//SHOW DATA ?>
 <div class="item <?php if (!$i) echo 'active' ; ?>">
 <img src="<?php the_cfc_field( 'publicdatasets','picture' , false, $key); ?>">
-<div class="carousel-caption">
+<div class="flex-caption">
 <p><?php the_cfc_field( 'publicdatasets','caption' , false, $key ); ?></p>
-<p><a class="btn btn-primary" href="<?php echo $the_button_url; ?>">Explore</a></p>
+<p><a class="btn btn-primary external-link" href="<?php the_cfc_field( 'publicdatasets','explore-url' , false, $key); ?>">Explore</a></p>
 </div>
 </div>
 <?php 		$i++; ?>

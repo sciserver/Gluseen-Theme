@@ -9,8 +9,13 @@ $args = array(
 	'post_type'        => 'funding',
 	'post_status'      => 'publish',
 );
-$posts_array = get_posts( $args );
 ?>
+<?php if (!$posts_array = get_posts( $args )) : ?>
+  <div class="alert alert-warning">
+    <?php _e('Sorry, no funding opportunities found at this time.', 'roots'); ?>
+  </div>
+<?php 	return; ?>
+<?php endif; ?>
 <?php
 //How will they be displayed?
 global $orderby;
@@ -24,9 +29,9 @@ if ( $orderby = get_query_var( 'orderby' , 'title' ) )
 <a href="?orderby=sponsor" class="btn btn-primary" alt="coming soon">Order by Agency</a>
 <button class="btn btn-primary disabled">Order by Deadline</button>
 </p>
+<?php // START COLLAPSED - THERE ARE A LOT ?>
 <p class="h4 pull-right">
-<button class="btn btn-success expand-all" data-group="funding-group">Expand All</button>
-<button class="btn btn-danger collapse-all" data-group="funding-group">Collapse All</button>
+<button class="btn btn-success" id="expand-all" data-group="funding-group">Expand All</button>
 </p>
 <div class="clearfix">&nbsp;</div>
 <div class="funding-group">

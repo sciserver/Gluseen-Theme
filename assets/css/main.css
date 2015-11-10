@@ -8643,9 +8643,6 @@ body.page .col-content-danger {
 body.page article header i {
   color: #3d6f9d;
 }
-body.page article div.entry-summary {
-  border-left: #3d6f9d solid 5px;
-}
 body div.universe div.carousel-inner div.item img {
   margin-left: auto;
   margin-right: auto;
@@ -9425,27 +9422,6 @@ body.page.research main.main #accordion .panel.panel-default .panel-body {
 /* ++++++++++++++++++++++++++++++++++++++++++++++++
    Datasets Carousel 
    ++++++++++++++++++++++++++++++++++++++++++++++++ */
-body.page.datasets main.main #carousel-public ul.nav.nav-pills.nav-justified {
-  background-color: #eeeeee;
-}
-body.page.datasets main.main #carousel-public ul.nav.nav-pills.nav-justified li {
-  background-color: #eeeeee;
-}
-body.page.datasets main.main #carousel-public ul.nav.nav-pills.nav-justified li .active {
-  background-color: #eeeeee;
-}
-body.page.datasets main.main #carousel-public ul.nav.nav-pills.nav-justified li > a {
-  background-color: #eeeeee;
-  color: #255682;
-  text-decoration: none;
-}
-body.page.datasets main.main #carousel-public ul.nav.nav-pills.nav-justified li > a:focus {
-  outline: none;
-}
-body.page.datasets main.main #carousel-public ul.nav.nav-pills.nav-justified li > a:hover {
-  color: #333333;
-  font-weight: bold;
-}
 body.page.datasets main.main #carousel-public ul.nav.nav-pills.nav-justified.carousel-indicators {
   background-color: #eeeeee;
   position: inherit;
@@ -9463,9 +9439,9 @@ body.page.datasets main.main #carousel-public ul.nav.nav-pills.nav-justified.car
   display: block;
   float: none;
   height: inherit;
+  width: inherit;
   margin-bottom: inherit;
   text-indent: inherit;
-  border-radius: 0;
   border: 0;
   background-color: #eeeeee;
 }
@@ -9476,12 +9452,41 @@ body.page.datasets main.main #carousel-public ul.nav.nav-pills.nav-justified.car
   background-color: #eeeeee;
   color: #255682;
   text-decoration: none;
+  border-radius: 0;
 }
 body.page.datasets main.main #carousel-public ul.nav.nav-pills.nav-justified.carousel-indicators li > a:focus {
   outline: none;
 }
 body.page.datasets main.main #carousel-public ul.nav.nav-pills.nav-justified.carousel-indicators li > a:hover {
+  background-color: #e7e7e7;
   color: #333333;
+}
+body.page.datasets main.main #carousel-public ul.nav.nav-pills.nav-justified.carousel-indicators li.active > a {
+  background-color: #255682;
+  color: #ffffff;
+}
+body.page.datasets main.main #carousel-public .flex-caption {
+  width: 40%;
+  padding: 10px;
+  margin: 0 0 60px 60px;
+  background-color: #222;
+  background: rgba(0, 0, 0, 0.8);
+  position: absolute;
+  display: block;
+  left: 0;
+  bottom: 0;
+  border-left: 4px solid #255682;
+}
+body.page.datasets main.main #carousel-public .flex-caption p {
+  color: white;
+}
+/* ++++++++++++++++++++++++++++++++++++++++++++++++
+   Blog
+   ++++++++++++++++++++++++++++++++++++++++++++++++ */
+body.blog main.main article > header > time:before {
+  content: "\f073";
+  font-family: FontAwesome;
+  padding-right: 4px;
 }
 /* ================================================
    Content Sections
@@ -9513,6 +9518,9 @@ body.page.datasets main.main #carousel-public ul.nav.nav-pills.nav-justified.car
   body.home div.page-header h1,
   body.home div.page-header .h1 {
     font-size: 2em;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #ffffff;
   }
 }
 @media (max-width: 1199px) {

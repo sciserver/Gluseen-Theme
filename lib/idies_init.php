@@ -98,8 +98,6 @@ function idies_widgets_init(  ) {
 		'before_title'  => '<p class="brand-heading">',
 		'after_title'   => '</p>',
 		));
-
-  
 }
 add_action('widgets_init', 'idies_widgets_init' );
 
@@ -107,13 +105,20 @@ add_action('widgets_init', 'idies_widgets_init' );
  * Add extra query variables
  */
 function idies_add_query_vars_filter( $vars ){
-  $vars[] = "action";
-  $vars[] = "cfc";
-  $vars[] = "target";
-  $vars[] = "which";
-  for ($indx=1; $indx<100; $indx++) $vars[] = "idies-form-" . $indx;
+  $vars[] = "idies-form-action";
+  $vars[] = "idies-form-cfc";
+  $vars[] = "idies-form-target";
+  $vars[] = "idies-form-which";
+  $vars[] = "dept";
+  $vars[] = "cent";
+  $vars[] = "sch";
+  
   return $vars;
 }
 add_filter( 'query_vars', 'idies_add_query_vars_filter' );
 
+function idies_do_rewrite() {
+    add_rewrite_rule('^affiliates/([^/]*)/([^/]*)/([^/]*)/?','index.php?page_id=203&dept=$matches[1]&cent=$matches[2]&sch=$matches[3]','top');
+}
 
+add_action('init', 'idies_do_rewrite');
