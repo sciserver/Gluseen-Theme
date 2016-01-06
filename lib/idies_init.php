@@ -1,4 +1,7 @@
 <?php
+/***************************************
+ * ACTIONS
+ ***************************************/
 /**
  * IDIES initial setup and constants
  */
@@ -101,6 +104,27 @@ function idies_widgets_init(  ) {
 }
 add_action('widgets_init', 'idies_widgets_init' );
 
+/***************************************
+ * REWRITE TAGS
+ ***************************************/
+/**
+ * Add a rewrite tag
+ */
+function idies_rewrite_tag() {
+  add_rewrite_tag('%idies_type%', '([^&]+)');
+}
+add_action('init', 'idies_rewrite_tag', 10, 0);
+/**
+ * Add a rewrite rule
+ */
+function idies_rewrite_rule() {
+    add_rewrite_rule('^affiliates/([^/]*)/([^/]*)/([^/]*)/([^/]*)/?','index.php?page_id=203&idies_type=$matches[1]&idies_dept=$matches[2]&idies_cent=$matches[3]&idies_sch=$matches[4]','top');
+}
+add_action('init', 'idies_rewrite_rule', 10, 0);
+
+/***************************************
+ * FILTERS
+ ***************************************/
 /**
  * Add extra query variables
  */
@@ -109,16 +133,43 @@ function idies_add_query_vars_filter( $vars ){
   $vars[] = "idies-form-cfc";
   $vars[] = "idies-form-target";
   $vars[] = "idies-form-which";
-  $vars[] = "dept";
-  $vars[] = "cent";
-  $vars[] = "sch";
+  $vars[] = "idies_dept";
+  $vars[] = "idies_cent";
+  $vars[] = "idies_sch";
+  $vars[] = "idies_type";
   
   return $vars;
 }
 add_filter( 'query_vars', 'idies_add_query_vars_filter' );
 
-function idies_do_rewrite() {
-    add_rewrite_rule('^affiliates/([^/]*)/([^/]*)/([^/]*)/?','index.php?page_id=203&dept=$matches[1]&cent=$matches[2]&sch=$matches[3]','top');
-}
+/**
+ * Show 12 affiliates at a time
+ */
+function idies_limits( $limits )
+{
+	if( !is_admin() && is_archive( 'affiliate' )  ) {
+		$offset=16;
+		// get limits
+		$ok = preg_match_all('/\d+/i',$limits,$match_limits);
+		if ($ok) return 'LIMIT ' . $offset * intval($match_limits[0][0] / $match_limits[0][1]) . ", " . $offset;
+	}
 
-add_action('init', 'idies_do_rewrite');
+  // not in glossary category, return default limits
+  return $limits;
+}
+add_filter('post_limits', 'idies_limits' );
+
+/**
+ * Show affiliates in alphabetical order
+ */
+function idies_alphabetical( $orderby )
+{
+  if( !is_admin() && is_archive( 'affiliate' )  ) {
+     // alphabetical order by post title
+     return "post_title ASC";
+  }
+
+  // not in glossary category, return default order by
+  return $orderby;
+}
+add_filter('posts_orderby', 'idies_alphabetical' );

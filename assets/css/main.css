@@ -7567,6 +7567,16 @@ body.home section.splash-explore h3 {
 /* ================================================
    Fonts
    ================================================ */
+.bigger {
+  font-size: 1.2em;
+}
+/* ================================================
+   Typography
+   ================================================ */
+.reference {
+  text-indent: -10px;
+  margin-left: 10px;
+}
 /* ================================================
    Header
    ================================================ */
@@ -8656,6 +8666,15 @@ body div.universe div.carousel-inner div.carousel-caption.carousel-caption-light
   text-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
 }
 /* ================================================
+   Special Pages
+   ================================================ */
+/* ++++++++++++++++++++++++++++++++++++++++++++++++
+   Affiliate Archive
+   ++++++++++++++++++++++++++++++++++++++++++++++++ */
+body.single-affiliate img.attachment-thumbnail {
+  margin-bottom: 10px;
+}
+/* ================================================
    Sidebar Widgets
    ================================================ */
 body.page aside section.widget.widget_ninja_forms_widget {
@@ -9500,6 +9519,39 @@ body.blog main.main article > header > time:before {
 /* ================================================
    WordPress Overrides
    ================================================ */
+/* ================================================
+   DrillDown Plugin Classes
+   ================================================ */
+li[data-toggle="drilldown"] {
+  font-weight: bold;
+  cursor: pointer;
+  padding-left: 10px;
+  text-indent: -21px;
+}
+li[data-toggle="drilldown"]:before {
+  content: "\f046 ";
+  font-family: FontAwesome;
+  margin-right: .5em;
+}
+li[data-toggle="drilldown"].off:before {
+  content: "\f096 ";
+  font-family: FontAwesome;
+  margin-right: .5em;
+}
+li[data-toggle="drilldown"].off {
+  color: lightgray;
+}
+div.drilldown-target {
+  height: 170px;
+  overflow: hidden;
+}
+/* ================================================
+   DrillDown2 Plugin Classes
+   ================================================ */
+.dd2-controls .form-group,
+.dd2-controls .comment-form p {
+  margin-bottom: initial;
+}
 /* ================================================
    Media
    ================================================ */

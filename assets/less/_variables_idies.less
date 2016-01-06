@@ -12,6 +12,17 @@
 /* ================================================
    Fonts
    ================================================ */
+   .bigger {
+	font-size: 1.2em;
+   }
+/* ================================================
+   Typography
+   ================================================ */
+// Hanging indent
+.reference {
+	text-indent: -10px;
+	margin-left: 10px;
+}
 
 /* ================================================
    Header
@@ -457,6 +468,17 @@ body div.universe {
 }
 
 /* ================================================
+   Special Pages
+   ================================================ */
+/* ++++++++++++++++++++++++++++++++++++++++++++++++
+   Affiliate Archive
+   ++++++++++++++++++++++++++++++++++++++++++++++++ */
+body.single-affiliate {
+	img.attachment-thumbnail {
+		margin-bottom: 10px;
+	}
+}
+   /* ================================================
    Sidebar Widgets
    ================================================ */
 body.page aside section.widget.widget_ninja_forms_widget {
@@ -834,6 +856,40 @@ body.blog main.main article>header {
 /* ================================================
    WordPress Overrides
    ================================================ */
+
+/* ================================================
+   DrillDown Plugin Classes
+   ================================================ */
+li[data-toggle="drilldown"] {
+	font-weight:bold;
+	cursor: pointer;
+	padding-left: 10px;
+    text-indent: -21px;	
+	&:before {
+		content: "\f046 ";
+		font-family: FontAwesome;
+		margin-right: .5em;	
+	}
+	&.off:before {
+		content: "\f096 ";
+		font-family: FontAwesome;
+		margin-right: .5em;	
+	}
+	&.off{
+		color:lightgray;
+	}
+}
+div.drilldown-target {
+	height:170px;
+	overflow:hidden;
+}
+
+/* ================================================
+   DrillDown2 Plugin Classes
+   ================================================ */
+.dd2-controls .form-group {
+	margin-bottom: initial;
+}
 
 /* ================================================
    Media

@@ -6,8 +6,6 @@
   <?php get_search_form(); ?>
 <?php endif; ?>
 
-Learn about the exciting happenings IDIES Affiliates, from published papers, awards and grants received, copies of presentations, and any other accomplishments.
-
 <?php while (have_posts()) : the_post(); ?>
   <?php get_template_part('templates/content', get_post_format()); ?>
 <?php endwhile; ?>
