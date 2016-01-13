@@ -676,7 +676,9 @@ AFFILIATES PAGES
  * Get Data About Affiliates
  * 
  */
-function idies_get_affiliates(  $affiliate_name = -1 ) {
+function idies_get_affiliates( $orderby = 'last'  ) {
+	
+	$affiliate_name = -1; //for debugging
 	
 	$all_affiliate_info = array();
 
@@ -700,6 +702,7 @@ function idies_get_affiliates(  $affiliate_name = -1 ) {
 			
 			$this_affiliate_meta = get_post_meta( $this_affiliate->ID , 'affiliate-details' , true);
 			
+			$affiliate_info['post_title'] = $this_affiliate->post_name;
 			$affiliate_info['ID'] = $this_affiliate->ID;
 			$affiliate_info['display_name'] = empty( $this_affiliate->post_title ) ? '' : $this_affiliate->post_title;
 			$affiliate_info['last_name'] = empty( $this_affiliate_meta[0]['last-name'] ) ? '' : $this_affiliate_meta[0]['last-name'];
@@ -707,9 +710,9 @@ function idies_get_affiliates(  $affiliate_name = -1 ) {
 			$affiliate_info['url'] = empty( $this_affiliate_meta[0]['url'] ) ? '' : $this_affiliate_meta[0]['url'] ;
 			$affiliate_info['phone'] = empty( $this_affiliate_meta[0]['phone-number'] ) ? '' : $this_affiliate_meta[0]['phone-number'];
 			$affiliate_info['address'] = empty( $this_affiliate_meta[0]['campus-address'] ) ? '' : $this_affiliate_meta[0]['campus-address'] ;
-			$affiliate_info['exec-comm'] = empty( $this_affiliate_meta[0]['executive-committee'] ) ? false : true ;
+			$affiliate_info['execcomm'] = empty( $this_affiliate_meta[0]['executive-committee'] ) ? false : true ;
 			$affiliate_info['staff'] = empty( $this_affiliate_meta[0]['staff'] ) ? false : true ;
-			$affiliate_info['idies-title'] = empty( $this_affiliate_meta[0]['idies-title'] ) ? '' : $this_affiliate_meta[0]['idies-title'] ;
+			$affiliate_info['idies_title'] = empty( $this_affiliate_meta[0]['idies-title'] ) ? '' : $this_affiliate_meta[0]['idies-title'] ;
 			
 			$get_depts = array();
 			$get_schools = array();
@@ -744,6 +747,19 @@ function idies_get_affiliates(  $affiliate_name = -1 ) {
 	}
 
 	//idies_debug( $all_affiliate_info );
+
+	//default is order by last_name
+	switch ( $orderby ) {
+		case 'dept':
+			uasort( $all_affiliate_info , 'idies_sort_by_dept' );
+		break;
+		case 'school' :
+			uasort( $all_affiliate_info , 'idies_sort_by_school' );
+		break;
+		case 'last' :
+		default:
+			uasort( $all_affiliate_info , 'idies_sort_by_last' );
+	}
 	return $all_affiliate_info ;
 
 }
@@ -767,6 +783,7 @@ function idies_get_departments( $all_affiliates ) {
 	}
 	
 	//idies_debug( $all_department_info );
+	uasort( $all_department_info , 'idies_sort_by_display_name' );
 	return $all_department_info ;
 }
 
@@ -789,15 +806,18 @@ function idies_get_schools( $all_affiliates ) {
 	}
 	
 	//idies_debug( $all_school_info );
+	uasort( $all_school_info , 'idies_sort_by_display_name' );
 	return $all_school_info ;
 }
 
-function idies_get_exec_comm( $the_affiliates ){
-	$exec_comm = array();
+// Filter the affiliates array to only include affiliates with $filter, or,
+// not include affiliates with filter.  
+function idies_filter_affil( $the_affiliates , $filter , $is = true ){
+	$result = array();
 	foreach( $the_affiliates as $this_affiliate ) {
-		if ($this_affiliate['exec-comm'] ) $exec_comm[] = $this_affiliate;	
+		if ( empty( $this_affiliate[ $filter ] ) xor $is ) $result[] = $this_affiliate;	
 	}
-	return $exec_comm;
+	return $result;
 }
 
 // Works with uasort to custom sort the Affiliates associative array.

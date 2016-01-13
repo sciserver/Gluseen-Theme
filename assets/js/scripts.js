@@ -2314,156 +2314,33 @@
 				$("div." + $(this).attr('data-group') + ">article>div.collapse").each(function(){ $(this).collapse('hide') });			
 			}
 		});
+		
+		//activate tabs on affiliate page
+		$('#affiliateTabs a').click(function (e) {
+			e.preventDefault()
+			$(this).tab('show')
+		})
 	})
 }(jQuery);
-;;/* ========================================================================
- * IDIES: drilldown.js v0.1
- * Based on Bootstrap's COLLAPSE
- * ========================================================================
- * Copyright 2011-2015 IDIES
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- * ======================================================================== */
-
- //self invoking function
-+function ($) {
- 
-	'use strict';
-
-	// DRILLDOWN PUBLIC CLASS DEFINITION
-	// ================================
-	var Drilldown = {
-		
-		// initialize the plugin
-		init: function(){
-			this.groups = [];
-			
-			//update controller counts
-			this.resetCount();
-			
-			// save controllers for groups and
-			// set onclick functions for group-controllers and individual-controllers
-			var dd=this;
-			$("li[data-toggle='drilldown'][data-target$='-all']").each( function() {
-				var this_group = this.dataset.target.replace( "-all" , "" )
-				$( this ).on( "click" , { group: this_group } , dd.toggleGroup );
-				dd.groups.push( this_group );
-			});
-			
-			//loop through groups
-			//find all individuals in the group
-			// set the indiv function to call with group name and indiv name
-			$(dd.groups).each( function(  ) {
-				var this_group = this;
-				$("li[data-toggle='drilldown'][data-target^='"+this+"']:not([data-target$='-all'])").each( function() {
-					$( this ).on( "click" , { group : this_group , target: this.dataset.target } , dd.toggleIndiv );
-				});
-			});			
-		},
-		
-		// reset the count of shown elements in menu
-		resetCount: function(){
-			$('li[data-toggle="drilldown"]').each( function() {
-				if ($(this.dataset.target + ":not(.hidden)").length) {
-					$("span", this).html(' ('+$(this.dataset.target + ":not(.hidden)").length+')');
-				} else {
-					$("span", this).html('');
-				}
-			})
-		},
-		
-		// toggle an 'all' drilldown controller
-		toggleGroup: function( event ) {
-			
-			if ( $( this ).hasClass('off') ) {
-			
-				// if off, turn it on
-				$( this ).removeClass('off');
-				
-				// turn individual controls on an unhide targets
-				$("li[data-toggle='drilldown'][data-target^='"+event.data.group+"']:not([data-target$='-all'])").each( function() {
-					if ( $( this ).hasClass('off') ) {
-						$( this ).removeClass('off');
-						$( this.dataset.target ).removeClass('hidden');
-					}
-				});
-			} else {
-			
-				//turn it off
-				$( this ).addClass('off');
-				
-				//turn off all individuals in this group and hide their targets
-				$("li[data-toggle='drilldown'][data-target^='"+event.data.group+"']:not([data-target$='-all'])").each( function() {
-					$( this ).addClass('off');
-					$( this.dataset.target ).addClass('hidden');
-				});
-			}
-
-			
-			//hide what needs to be hidden and reset the counts
-			$( "li.off[data-toggle='drilldown']:not([data-target$='-all'])" ).each( function() { $( this.dataset.target ).addClass("hidden") } );
-			Drilldown.resetCount();
-		},
-		
-		// toggle an 'individual' drilldown controller
-		toggleIndiv: function( event ) {
-			
-			//if off,  turn on, show target, update if all are shown
-			if ( $( this ).hasClass('off') ) {
-			
-				// turn on and unhide target
-				$( this ).removeClass('off');
-				$( event.data.target ).removeClass('hidden');
-				
-				// see if any individual controllers are off, and if not, turn on group controller
-				if ( $( "li.off[data-toggle='drilldown'][data-target^='"+event.data.group+"']:not([data-target$='-all'])" ).length == 0 ) {
-					$("li[data-toggle='drilldown'][data-target='"+event.data.group+"-all']").removeClass( 'off' );
-				}
-			//if on,  turn off, hide target, update not all are shown			
-			} else {
-				$( this ).addClass('off');
-				$( event.data.target ).addClass('hidden');
-				$("li[data-toggle='drilldown'][data-target='"+event.data.group+"-all']").addClass('off')
-			}
-			
-			//hide what needs to be hidden and reset the counts
-			$( "li.off[data-toggle='drilldown']:not([data-target$='-all'])" ).each( function() { $( this.dataset.target ).addClass("hidden") } );
-			Drilldown.resetCount();
-		}
-		
-		// turn 'all' elements on
-		
-		// turn one off
-		
-		// turn one on
-	}
-
-	$(document).ready(function() {
-
-		//Drilldown.resetCount();
-
-		Drilldown.init();
-
-		return;
-		
-	});
-  
-}(jQuery);
-;/* ========================================================================
- * IDIES: drilldown2.js v0.2
- * Based on Bootstrap's COLLAPSE
+;;;/* ========================================================================
+ * IDIES: drilldown.js v0.3
  * ========================================================================
  * What it does:
  * 
  * Shows and hides elements based on constraints selected from one or more 
  * groups of constraints, e.g. schools, departments, research interests.
  * 
- * All constraints should be in a wrapper with the class dd2-controls.
- * All targets should be in a wrapper with the class dd2-targets.
+ * All controls should be in a wrapper with the class [prefix]-controls.
+ * All targets should be in a wrapper with the class [prefix]-targets.
+ * [prefix] is passed in when initializing the class in the Drilldown.ready function. 
+ *
+ * Formatting is set up in less using the prefix.
  * 
- * Each group of constraints starts with a Show All element with data-toggle="drilldown2" 
- * and data-target="[group]-all", e.g. "sch-all".
+ * Each group of controls starts with a Show All control with data-toggle="drilldown" 
+ * and data-target="[prefix]-[groupname]-all", e.g. "sch-all". Drilldown will get the 
+ * group names from the webpage.
  * 
- * Each individual constraint has a data-toggle set to "drilldown2" and a data-target 
+ * Each individual constraint has a data-toggle set to 'tog' and a data-target 
  * set to a unique selector "[group]-[selector]", e.g. "sch-1099".
  * Only elements satisfying all constraints will be shown.
  * 
@@ -2497,20 +2374,21 @@
  
 	'use strict';
 
-	// DRILLDOWN2 PUBLIC CLASS DEFINITION
+	// Drilldown PUBLIC CLASS DEFINITION
 	// ================================
-	var Drilldown2 = {
+	var Drilldown = {
 		
 		// initialize the plugin
-		init: function(tog){
-			Drilldown2.tog = tog;
+		init: function( pre ){
+			Drilldown.tog = pre;
+			Drilldown.pre = "."+pre+"-";
 			
 			//update controller counts
 			this.resetCount();
 			
 			// set onclick functions for group-controllers and individual-controllers
 			var dd2=this;
-			$(".dd2-controls [data-toggle='"+Drilldown2.tog+"'][data-target$='-all']").each( function() {
+			$(Drilldown.pre+"controls [data-toggle='"+Drilldown.tog+"'][data-target$='-all']").each( function() {
 				
 				//get the prefix of the group
 				var this_group = this.dataset.target.replace( "-all" , "" )
@@ -2519,7 +2397,7 @@
 				$( this ).on( "click" , { group: this_group } , dd2.toggleGroup );
 				
 				//set the click events for individual constraints
-				$(".dd2-controls [data-toggle='"+Drilldown2.tog+"'][data-target^='"+this_group+"']:not([data-target$='-all'])").each( function() {
+				$(Drilldown.pre+"controls [data-toggle='"+Drilldown.tog+"'][data-target^='"+this_group+"']:not([data-target$='-all'])").each( function() {
 					$( this ).on( "click" , { group : this_group , target: this.dataset.target } , dd2.toggleIndiv );
 				});
 			});
@@ -2530,22 +2408,30 @@
 		showChecked: function(){
 
 			// Show the checked controls
-			$(".dd2-controls input[data-toggle='"+Drilldown2.tog+"']:checked").each( function() {
+			$(Drilldown.pre+"controls input[data-toggle='"+Drilldown.tog+"']:checked").each( function() {
 				$(this.dataset.target).removeClass('hidden');
 			})
 
 			// Hide the checked controls
-			$(".dd2-controls input[data-toggle='"+Drilldown2.tog+"']:checked").each( function() {
+			$(Drilldown.pre+"controls input[data-toggle='"+Drilldown.tog+"']:checked").each( function() {
 				$(this.dataset.target).removeClass('hidden');
 			})
 		},
 		
 		// reset the count of not-hidden elements in menu
 		resetCount: function(){
-
-			$(".dd2-controls [data-toggle='"+Drilldown2.tog+"']:not([data-target$='-all']").each( function() {
+			
+			//new
+			$(Drilldown.pre + "controls label:not([data-target$='-all']").each( function() {
+				$("span", this).html("(#)");
+				console.log( $("." + $( this ).attr( "for" ) + ":not(.hidden)" , Drilldown.tog + "-targets") );
+			});
+		
+			//old
+			$(Drilldown.pre+"controls [data-toggle='"+Drilldown.tog+"']:not([data-target$='-all']").each( function() {
 				if ($(this.dataset.target + ":not(.hidden)").length) {
-					$("span", $(".dd2-controls label[for='dd2-"+this.dataset.target+"']") ).html(' ('+$(this.dataset.target + ":not(.hidden)").length+')');
+					
+					$("span", $(Drilldown.pre+"controls label[for='"+Drilldown.pre+this.dataset.target+"']") ).html(' ('+$(this.dataset.target + ":not(.hidden)").length+')');
 				} else {
 					$("span", this).html('');
 				}
@@ -2559,13 +2445,13 @@
 			if ( $( this ).prop('checked') ) {
 				
 				//uncheck other boxes in group
-				$( ".dd2-controls [data-toggle='"+Drilldown2.tog+"'][data-target^='"+event.data.group+"']:not([data-target$='-all'])").each( function(  ) {
+				$( Drilldown.pre+"controls [data-toggle='"+Drilldown.tog+"'][data-target^='"+event.data.group+"']:not([data-target$='-all'])").each( function(  ) {
 					$( this ).prop( 'checked' , false );
 				});
 
 			}
 			
-			Drilldown2.resetCount();
+			Drilldown.resetCount();
 		},
 		
 		// toggle an 'individual' controller
@@ -2574,22 +2460,22 @@
 			// if checked
 			if ( $( this ).prop('checked') ) {
 				
-				$( ".dd2-controls [data-toggle='"+Drilldown2.tog+"'][data-target='"+event.data.group+"-all']" ).prop('checked',false);
+				$( Drilldown.pre+"controls [data-toggle='"+Drilldown.tog+"'][data-target='"+event.data.group+"-all']" ).prop('checked',false);
 				
 			}
 			
 			//hide what needs to be hidden and reset the counts
 			
-			Drilldown2.resetCount();
+			Drilldown.resetCount();
 		}
 
 	}
 
 	$(document).ready(function() {
 
-		//Drilldown2.resetCount();
+		//Drilldown.resetCount();
 
-		Drilldown2.init("drilldown2");
+		Drilldown.init("dd2");
 
 		return;
 		

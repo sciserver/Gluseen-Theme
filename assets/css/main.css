@@ -9386,6 +9386,9 @@ body.page.research main.main #accordion a[data-toggle="collapse"].collapsed:befo
 /* ++++++++++++++++++++++++++++++++++++++++++++++++
    Research 
    ++++++++++++++++++++++++++++++++++++++++++++++++ */
+body.page.affiliates div.tab-pane {
+  margin-top: 20px;
+}
 body.page.research main.main #accordion .panel.panel-default {
   border: none;
 }
@@ -9541,7 +9544,7 @@ li[data-toggle="drilldown"].off:before {
 li[data-toggle="drilldown"].off {
   color: lightgray;
 }
-div.drilldown-target {
+div.dd2-target .well {
   height: 170px;
   overflow: hidden;
 }
