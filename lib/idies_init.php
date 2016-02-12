@@ -111,14 +111,14 @@ add_action('widgets_init', 'idies_widgets_init' );
  * Add a rewrite tag
  */
 function idies_rewrite_tag() {
-  add_rewrite_tag('%idies_type%', '([^&]+)');
+  //add_rewrite_tag('%idies_type%', '([^&]+)');
 }
 add_action('init', 'idies_rewrite_tag', 10, 0);
 /**
  * Add a rewrite rule
  */
 function idies_rewrite_rule() {
-    add_rewrite_rule('^affiliates/([^/]*)/([^/]*)/([^/]*)/([^/]*)/?','index.php?page_id=203&idies_type=$matches[1]&idies_dept=$matches[2]&idies_cent=$matches[3]&idies_sch=$matches[4]','top');
+    //add_rewrite_rule('^affiliates/([^/]*)/([^/]*)/([^/]*)/([^/]*)/?','index.php?page_id=203&idies_type=$matches[1]&idies_dept=$matches[2]&idies_cent=$matches[3]&idies_sch=$matches[4]','top');
 }
 add_action('init', 'idies_rewrite_rule', 10, 0);
 
@@ -133,10 +133,8 @@ function idies_add_query_vars_filter( $vars ){
   $vars[] = "idies-form-cfc";
   $vars[] = "idies-form-target";
   $vars[] = "idies-form-which";
-  $vars[] = "idies_dept";
-  $vars[] = "idies_cent";
-  $vars[] = "idies_sch";
-  $vars[] = "idies_type";
+  $vars[] = "idies-affil-pane";
+  $vars[] = "idies-affil-order";
   
   return $vars;
 }

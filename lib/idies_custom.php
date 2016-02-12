@@ -756,6 +756,9 @@ function idies_get_affiliates( $orderby = 'last'  ) {
 		case 'school' :
 			uasort( $all_affiliate_info , 'idies_sort_by_school' );
 		break;
+		case 'title' :
+			uasort( $all_affiliate_info , 'idies_sort_by_title' );
+		break;
 		case 'last' :
 		default:
 			uasort( $all_affiliate_info , 'idies_sort_by_last' );
@@ -885,6 +888,29 @@ function idies_sort_by_dept( $a , $b ) {
 	
 	//sort by primary department
     return ( strcmp( $afirst['display_name'] , $bfirst['display_name'] ) < 0 ) ? -1 : 1;
+}
+
+// Works with uasort to custom sort the Affiliates associative array.
+// Sorts by (IDIES) Title.  
+function idies_sort_by_title( $a , $b ) {
+
+	//if neither has a title, sort by last name.
+	//if only one is empty, put it last.
+	if ( !( count( $a['idies_title'] ) + count( $b['idies_title'] )  ) ) {
+		return idies_sort_by_last( $a , $b );
+	} elseif ( !(count( $a['idies_title'] ) ) ) {
+		return 1;
+	} elseif ( !(count( $b['idies_title'] ) ) ) {
+		return 1;
+	}
+
+	//if both have same title, sort by last name.
+	if ( strcmp( $a['idies_title'], $b['idies_title'] ) === 0 ) {
+		return idies_sort_by_last( $a , $b );
+	}
+	
+	//sort by primary department
+    return ( strcmp( $a['idies_title'] , $b['idies_title'] ) < 0 ) ? -1 : 1;
 }
 
 // Works with uasort to custom sort the Departments associative array.

@@ -2319,10 +2319,10 @@
 		$('#affiliateTabs a').click(function (e) {
 			e.preventDefault()
 			$(this).tab('show')
-		})
+		});
 	})
 }(jQuery);
-;;;/* ========================================================================
+;;/* ========================================================================
  * IDIES: drilldown.js v0.3
  * ========================================================================
  * What it does:
@@ -2383,9 +2383,9 @@
 			Drilldown.tog = pre;
 			Drilldown.pre = "."+pre+"-";
 			
-			//update controller counts
+			//reset controls count
 			this.resetCount();
-			
+			this.resetOverview();
 			// set onclick functions for group-controllers and individual-controllers
 			var dd2=this;
 			$(Drilldown.pre+"controls [data-toggle='"+Drilldown.tog+"'][data-target$='-all']").each( function() {
@@ -2405,40 +2405,49 @@
 		},
 		
 		// Show targets that have controls Checked.
-		showChecked: function(){
+		updateHidden: function(){
+		
+			//first show-hide groups
+			$(Drilldown.pre+"controls [data-toggle='"+Drilldown.tog+"'][data-target$='-all']").each( function() {
+				$( Drilldown.pre + "targets ." + this.id + ".hidden").each( function() {
+					$(this).removeClass('hidden');
+				});
+			});
+			
+			//then hide unchecked indiv in unchecked groups
+			$(Drilldown.pre+"controls [data-toggle='" + Drilldown.tog + "'][data-target$='-all']" ).each( function() {
+				if ( !$( this ).prop('checked') ) {
 
-			// Show the checked controls
-			$(Drilldown.pre+"controls input[data-toggle='"+Drilldown.tog+"']:checked").each( function() {
-				$(this.dataset.target).removeClass('hidden');
-			})
+					$((Drilldown.pre+"controls [data-target^='." + this.id.replace('-all','') + "']:not([data-target$='-all'])")).each( function() {
+						if( !this.checked) $(this.dataset.target).addClass('hidden');
+					});
+					
+					//but show checked indiv in unchecked groups (because of multiple affiliations)
+					$((Drilldown.pre+"controls [data-target^='." + this.id.replace('-all','') + "']:not([data-target$='-all'])")).each( function() {
+						if( this.checked) $(this.dataset.target).removeClass('hidden');
+					});
+				}
+			});
 
-			// Hide the checked controls
-			$(Drilldown.pre+"controls input[data-toggle='"+Drilldown.tog+"']:checked").each( function() {
-				$(this.dataset.target).removeClass('hidden');
-			})
 		},
 		
-		// reset the count of not-hidden elements in menu
+		// reset the menu count of shown elements
 		resetCount: function(){
 			
 			//new
-			$(Drilldown.pre + "controls label:not([data-target$='-all']").each( function() {
-				$("span", this).html("(#)");
-				console.log( $("." + $( this ).attr( "for" ) + ":not(.hidden)" , Drilldown.tog + "-targets") );
+			$(Drilldown.pre + "controls [data-target^='" + Drilldown.pre + "']:not([data-target$='-all']").each( function() {
+				$("label[for='" + this.id + "'] span").html("(" + $(Drilldown.pre + "targets ." + this.id ).length + ")");
 			});
 		
-			//old
-			$(Drilldown.pre+"controls [data-toggle='"+Drilldown.tog+"']:not([data-target$='-all']").each( function() {
-				if ($(this.dataset.target + ":not(.hidden)").length) {
-					
-					$("span", $(Drilldown.pre+"controls label[for='"+Drilldown.pre+this.dataset.target+"']") ).html(' ('+$(this.dataset.target + ":not(.hidden)").length+')');
-				} else {
-					$("span", this).html('');
-				}
-			})
 		},
 		
-		// toggle an 'all'  controller
+		// reset the menu count of shown elements
+		resetOverview: function(){
+			$(Drilldown.pre + "overview").html("<span>Showing " + $(Drilldown.pre + "target:not(.hidden)").length + " of " + $(Drilldown.pre + "target").length + " Affiliates<span>");
+		
+		},
+		
+		// toggle an 'all'  controller - uncheck indiv if checked, can't uncheck
 		toggleGroup: function( event ) {
 			
 			// if checked
@@ -2449,9 +2458,15 @@
 					$( this ).prop( 'checked' , false );
 				});
 
+			} else {
+				//can only uncheck by checking indiv.
+				$( this ).prop( 'checked' , true )
 			}
 			
+			Drilldown.updateHidden();
 			Drilldown.resetCount();
+			Drilldown.resetOverview();
+			
 		},
 		
 		// toggle an 'individual' controller
@@ -2465,17 +2480,88 @@
 			}
 			
 			//hide what needs to be hidden and reset the counts
-			
+			Drilldown.updateHidden();
 			Drilldown.resetCount();
+			Drilldown.resetOverview();
 		}
 
 	}
 
 	$(document).ready(function() {
 
-		//Drilldown.resetCount();
-
 		Drilldown.init("dd2");
+
+		return;
+		
+	});
+  
+}(jQuery);
+;/* ========================================================================
+ * IDIES: idies-sortable.js v1.0
+ * ========================================================================
+ * What it does:
+ * 
+ *   Sorts html elements alphabetically.
+ *   Toggle which field to sort by.
+ * 
+ * 
+ * ======================================================================== 
+ * Copyright 2011-2015 IDIES
+ * Licensed under MIT 
+ * ======================================================================== */
+
+ //self invoking function
++function ($) {
+	
+	'use strict';
+
+	// Sortable PUBLIC CLASS DEFINITION
+	// ================================
+	var Sortable = {
+				// initialize the plugin
+		init: function( a ){
+			
+			// set global completed to false
+			Sortable.completed = false;
+			Sortable.toggles = new Array();
+			Sortable.targets = new Array();
+			
+			// get all the sortable toggles
+			$("[data-toggle=sortable]").each ( function() {
+				Sortable.toggles.push( {key:$(this).data("sortable-target") , label:$(this).text() } );
+			});
+			
+			// get the contents of the targets
+			$(".data-sortable-target").each ( function() {
+				Sortable.targets.push( $(this).html() );
+			});
+			console.log(Sortable.targets);
+			
+			
+			// set completed to true
+			Sortable.completed=true;
+			
+		},
+		
+		// Show targets that have controls Checked.
+		update: function( b ){
+		
+
+		},
+		
+		// reset the menu count of shown elements
+		reset: function( c ){
+			
+		
+		}		
+
+	}
+
+	$(document).ready(function() {
+		
+		if ( $("#sortable-container").length > 0 ) {
+			Sortable.init("sortable-container");
+		}
 
 		return;
 		

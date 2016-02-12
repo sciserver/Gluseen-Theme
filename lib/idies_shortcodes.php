@@ -16,3 +16,4 @@ function idies_speaker(  ){
 		return '';
 	}
 }
+

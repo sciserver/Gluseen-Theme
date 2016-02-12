@@ -8674,6 +8674,53 @@ body div.universe div.carousel-inner div.carousel-caption.carousel-caption-light
 body.single-affiliate img.attachment-thumbnail {
   margin-bottom: 10px;
 }
+body.post-type-archive-affiliate ul.nav-tabs li > a.h4,
+body.page.affiliates ul.nav-tabs li > a.h4 {
+  margin-bottom: 0;
+}
+body.post-type-archive-affiliate #people .well,
+body.page.affiliates #people .well,
+body.post-type-archive-affiliate #execcomm .well,
+body.page.affiliates #execcomm .well,
+body.post-type-archive-affiliate #staff .well,
+body.page.affiliates #staff .well {
+  height: 180px;
+  overflow: hidden;
+}
+body .dd2-overview {
+  line-height: 2em;
+}
+body .dd2-overview span {
+  display: inline;
+  padding: .2em .6em .3em;
+  font-size: 75%;
+  font-weight: bold;
+  line-height: 1;
+  color: #ffffff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: .25em;
+  background-color: #5189bc;
+}
+abody .dd2-overview span:hover,
+abody .dd2-overview span:focus {
+  color: #ffffff;
+  text-decoration: none;
+  cursor: pointer;
+}
+body .dd2-overview span:empty {
+  display: none;
+}
+.btn body .dd2-overview span,
+.comment-form input[type="submit"] body .dd2-overview span {
+  position: relative;
+  top: -1px;
+}
+body .dd2-overview span[href]:hover,
+body .dd2-overview span[href]:focus {
+  background-color: #3d6f9d;
+}
 /* ================================================
    Sidebar Widgets
    ================================================ */
@@ -9543,10 +9590,6 @@ li[data-toggle="drilldown"].off:before {
 }
 li[data-toggle="drilldown"].off {
   color: lightgray;
-}
-div.dd2-target .well {
-  height: 170px;
-  overflow: hidden;
 }
 /* ================================================
    DrillDown2 Plugin Classes

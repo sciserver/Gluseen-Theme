@@ -8,65 +8,16 @@ while (have_posts()) : the_post();
 	the_content(); 
 endwhile; 
 
-// Show an affiliate in a formatted well.
-function show_affiliate_well( $this_affiliate , $affil_class = "" ) {
-	echo "<div class='$affil_class'>";
-	echo "<div class='col-lg-4 col-sm-6 col-xs-12'>";
-	echo "<div class='well'>";
-	echo "<p class='bigger'><strong><a href='" . home_url() . "/affiliates/" . $this_affiliate['post_title'] . "'>" . $this_affiliate['display_name'] . "</a></strong></p>";
-	if ( !empty( $this_affiliate['idies_title'] ) ) echo "<p>" . $this_affiliate['idies_title'] . "</strong></p>";
-	echo "<p>";
-	foreach( $this_affiliate[ 'depts' ] as $this_dept ) echo '<em>' . $this_dept['display_name'] . '</em><br />';
-	echo "</p>";
-	echo "<p>";
-	foreach( $this_affiliate[ 'schools' ] as $this_school ) echo '<strong>' . $this_school['display_name'] . '</strong><br />';
-	echo "</p>";
-	echo "</div>";
-	echo "</div>";
-	echo "</div>";
-}
-
-// Show the Order By options
-function show_orderby( $options = array() , $this_option ) {
-
-	echo "<div class='form-horizontal orderby_options text-center panel panel-info'>";
-	echo "<div class='panel-heading'>";
-	echo "<div class='row '>";
-	echo "<div class='col-sm-3 col-xs-12'><strong>Order by: </strong></div>";
-	
-	foreach ( $options as $this_option_value => $this_option_name ) {
-	
-		
-		$checked = ( strcmp($this_option_value , $this_option) === 0 ) ? 'checked=true' : "";
-		$this_id = "orderby_option_" . $this_option_value;
-		$onchange = " onchange=\"document.location='" . get_permalink() . "?orderby=$this_option_value'\" ";
-		echo "<div class='col-sm-3 col-xs-12'>";
-		
-		echo "<input type='radio' name='orderby_options' value='$this_option_value' $onchange $checked id='$this_id'>";
-		
-		echo "<label for='$this_id'>$this_option_name</label>";
-		
-		echo "</div>";
-	}
-	
-	echo "</div>";
-	echo "</div>";
-	echo "</div>";
-	
-	return;
-}
-
-//Show the Affiliate Search Bar
-
 // Find page to show from query var & check it
-$orderby_options = array( 'last' => 'Last Name' , 'school' => 'School' , 'dept' => 'Department');
-$orderby = get_query_var( 'orderby' , 'last' );
+$tab_pane = get_query_var( 'idies-affil-pane' , 'people' );
+if ( !in_array( $tab_pane , array( 'people', 'execcomm' , 'staff' ) ) ) $tab_pane = 'people';
 
-$show = get_query_var( 'idies_type' , 'people' );
-if ( !in_array( $show , array( 'execcomm' , 'staff' ) ) ) $show = 'people';
+$orderby = get_query_var( 'idies-affil-order' , 'last' );
 
 // get and flatten schools, centers, depts, and affiliates (putting school info in depts and dept/center info in affiliates
 $all_affiliates = idies_get_affiliates( $orderby );
+$all_affiliates = get_affiliate_wells( $all_affiliates );
+
 $all_departments = idies_get_departments( $all_affiliates );
 $all_schools = idies_get_schools( $all_affiliates );
 
@@ -74,7 +25,7 @@ $execcomm_affiliates = idies_filter_affil( $all_affiliates , "execcomm" , TRUE);
 $people_affiliates = idies_filter_affil( $all_affiliates , "staff" , FALSE );
 $staff_affiliates = idies_filter_affil( $all_affiliates , "staff" , TRUE );
 
- ?>
+?>
 <div>
   <!-- Nav tabs -->
   <ul id="affiliateTabs" class="nav nav-tabs" role="tablist">
@@ -89,21 +40,27 @@ $staff_affiliates = idies_filter_affil( $all_affiliates , "staff" , TRUE );
 		<!-- People pane -->
 		<div role="tabpanel" class="tab-pane active" id="people">
 			<div class="row">
+<?php			// Show affiliates ?>
 				<div class="col-sm-9 col-xs-12">
-<?php	
-					show_orderby( $orderby_options , $orderby ) ;
+<?php
+					$orderby_options = array( 'last' => 'Last Name' , 'school' => 'School' , 'dept' => 'Department' );
+					if ( !array_key_exists( $orderby , $orderby_options ) ) $orderby = "last";
+					show_orderby( $orderby_options , $orderby , "people" ) ;
 ?>
-					<div class='row dd2-targets'>
+					<div id="orderby-group-people" data-toggle="orderby" data-orderby-targets="last,school,dept" data-orderby-titles="'Last Name','School','Department'">
+						<div class='row dd2-targets'>
 <?php
 						foreach ( $people_affiliates as $this_affiliate) {
-							$target_class = ' dd2-target dd2-sch-all dd2-' . implode( ' dd2-' , array_keys( $this_affiliate[ 'schools' ] ) );
-							if ( count( $this_affiliate[ 'depts' ] ) ) $target_class .= ' dd2-dept-all dd2-' . implode( ' dd2-' , array_keys( $this_affiliate[ 'depts' ] ) );
-							show_affiliate_well( $this_affiliate , $target_class );
+							echo $this_affiliate['well'];
 						}
 ?>
+						</div>
 					</div>
 				</div>
+
+<?php			// Show sidebar controls ?>
 				<div class="col-sm-3 hidden-xs">
+					<div class="text-center  dd2-overview"></div>
 					<div class="form-horizontal dd2-controls">
 						<div class="panel panel-default">
 							<div class="panel-heading"><h4>Schools <div class="alignright"><a role="button" data-toggle="collapse" href="#collapseSch" aria-expanded="false" aria-controls="collapseSch"><i class="fa fa-bars fa-3"></i></a></div></h4></div>
@@ -158,29 +115,38 @@ $staff_affiliates = idies_filter_affil( $all_affiliates , "staff" , TRUE );
 				</div>
 			</div>
 		</div>
-	  <!-- Executive Committee pane -->
-		<div role="tabpanel" class="tab-pane" id="execcomm">
+		
+		<!-- Executive Committee pane -->
+		<div role="tabpanel" class="tab-pane <?php if ($tab_pane == 'execcomm') echo "active"; ?>" id="execcomm">
 			<div class="row">
 				<div class="col-xs-12">
-					<div class='row '>
+<?php
+					$orderby_options = array( 'last' => 'Last Name' , 'title' => 'Title');
+					if ( !array_key_exists( $orderby , $orderby_options ) ) $orderby = "last";
+					show_orderby( $orderby_options , $orderby  , "execcomm" ) ;
+?>
+					<div id="orderby-group-execcomm" data-toggle="orderby" data-orderby-targets="last,title" data-orderby-titles="'Last Name','Title'">
+						<div class='row '>
 <?php
 						foreach ( $execcomm_affiliates as $this_affiliate) {
-							show_affiliate_well( $this_affiliate );
+							echo $this_affiliate['well'];
 						}
 ?>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	<!-- Staff pane -->
-		<div role="tabpanel" class="tab-pane" id="staff">
+		
+		<!-- Staff pane -->
+		<div role="tabpanel" class="tab-pane <?php if ($tab_pane == 'staff') echo "active"; ?>" id="staff">
 			<div class="row">
 				<div class="col-xs-12">
-					<div class='row dd2-targets'>
+					<div id="orderby-group-staff" data-toggle="orderby" data-orderby-targets="last,title" data-orderby-titles="'Last Name','Title'">
 <?php
-						foreach ( $staff_affiliates as $this_affiliate) {
-							show_affiliate_well( $this_affiliate );
-						}
+					foreach ( $staff_affiliates as $this_affiliate) {
+						echo $this_affiliate['well'];
+					}
 ?>
 					</div>
 				</div>
@@ -188,3 +154,103 @@ $staff_affiliates = idies_filter_affil( $all_affiliates , "staff" , TRUE );
 		</div>
 	</div>
 </div>
+
+<?php //AFFILIATE FUNCTIONS 
+
+// Show an affiliate in a formatted well.
+function show_affiliate_well( $this_affiliate , $affil_class = "" , $attributes = "") {
+	echo "<div class='$affil_class' $attributes>";
+	echo "<div class='col-lg-4 col-sm-6 col-xs-12'>";
+	echo "<div class='well'>";
+	echo "<p class='bigger'><strong><a href='" . home_url() . "/affiliates/" . $this_affiliate['post_title'] . "'>" . $this_affiliate['display_name'] . "</a></strong></p>";
+	if ( !empty( $this_affiliate['idies_title'] ) ) echo "<p>" . $this_affiliate['idies_title'] . "</strong></p>";
+	echo "<p>";
+	foreach( $this_affiliate[ 'depts' ] as $this_dept ) echo '<em>' . $this_dept['display_name'] . '</em><br />';
+	echo "</p>";
+	echo "<p>";
+	foreach( $this_affiliate[ 'schools' ] as $this_school ) echo '<strong>' . $this_school['display_name'] . '</strong><br />';
+	echo "</p>";
+	echo "</div>";
+	echo "</div>";
+	echo "</div>";
+}
+
+// Get an affiliate in a formatted well.
+function get_affiliate_well( $this_affiliate , $affil_class = "" , $attributes = "") {
+	$result =  "<div class='$affil_class' $attributes>";
+	$result .= "<div class='col-lg-4 col-sm-6 col-xs-12'>";
+	$result .= "<div class='well'>";
+	$result .= "<p class='bigger'><strong><a href='" . home_url() . "/affiliates/" . $this_affiliate['post_title'] . "'>" . $this_affiliate['display_name'] . "</a></strong></p>";
+	if ( !empty( $this_affiliate['idies_title'] ) ) $result .= "<p>" . $this_affiliate['idies_title'] . "</strong></p>";
+	$result .= "<p>";
+	foreach( $this_affiliate[ 'depts' ] as $this_dept ) $result .= '<em>' . $this_dept['display_name'] . '</em><br />';
+	$result .= "</p>\n<p>";
+	foreach( $this_affiliate[ 'schools' ] as $this_school ) $result .= '<strong>' . $this_school['display_name'] . '</strong><br />';
+	$result .= "</p>\n</div>";
+	$result .= "</div>\n</div>";
+	
+	return $result;
+}
+
+// Show the Order By options
+function show_orderby( $options = array() , $this_option , $pane="people") {
+
+	echo "<div class='form-horizontal orderby_options text-center panel panel-info'>";
+	echo "<div class='panel-heading'>";
+	echo "<div class='row '>";
+	echo "<div class='col-sm-3 col-xs-12'><strong>Order by: </strong></div>";
+	
+	foreach ( $options as $this_option_value => $this_option_name ) {
+		
+		$checked = ( strcmp($this_option_value , $this_option) === 0 ) ? 'checked=true' : "";
+		$this_id = "orderby_option_" . $this_option_value;
+		echo "<div class='col-sm-3 col-xs-12'>";
+		
+		echo "<input type='radio' name='orderby_options_$pane' value='$this_option_value' $checked id='$this_id'>";
+		
+		echo "<label for='$this_id'>$this_option_name</label>";
+		
+		echo "</div>";
+	}
+	
+	echo "</div>";
+	echo "</div>";
+	echo "</div>";
+	
+	return;
+}
+
+// Formet Affiliate wells, including classes and attributes.
+// Add key that contains well markup to $affiliates array and return 
+// augmented array.
+// 
+function get_affiliate_wells( $the_affiliates ) {
+
+	foreach ( $the_affiliates as $this_affiliate) {
+	
+		//target class allows sidebar controls to show hide schools and departments
+		$target_class = ' dd2-target dd2-sch-all dd2-' . implode( ' dd2-' , array_keys( $this_affiliate[ 'schools' ] ) );
+		if ( count( $this_affiliate[ 'depts' ] ) ) $target_class .= ' dd2-dept-all dd2-' . implode( ' dd2-' , array_keys( $this_affiliate[ 'depts' ] ) );
+		
+		//orderby data fields allow toggles to control how to order affiliates
+		$orderby_class = " data-orderby-last='" . $this_affiliate['last_name'] . "' ";
+		$orderby_class .= ( !empty( $this_affiliate[ 'idies_title' ] ) ) ? " data-orderby-title='" . $this_affiliate['idies_title'] . "' " : "";
+		if ( count( $this_affiliate['schools'] ) ) {
+			$school_keys = array_keys( $this_affiliate['schools'] );
+			$orderby_class .= " data-orderby-school='" . $this_affiliate[ 'schools' ][$school_keys[0]][ 'display_name' ] . "' ";
+		}
+		if ( count( $this_affiliate['depts'] ) ) {
+			$dept_keys = array_keys( $this_affiliate['depts'] );
+			$orderby_class .= " data-orderby-dept='" . $this_affiliate[ 'depts' ][$dept_keys[0]][ 'display_name' ] . "' ";
+		}
+		$this_affiliate['well'] = get_affiliate_well( $this_affiliate , $target_class , $orderby_class );
+		$new_affiliates[] = $this_affiliate;
+	}
+	
+	return $new_affiliates;
+}
+// 
+
+//Show the Affiliate Search Bar
+function show_affil_search( $options = array() , $this_option , $pane="people") {
+}
