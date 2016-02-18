@@ -12,10 +12,10 @@ endwhile;
 $tab_pane = get_query_var( 'idies-affil-pane' , 'people' );
 if ( !in_array( $tab_pane , array( 'people', 'execcomm' , 'staff' ) ) ) $tab_pane = 'people';
 
-$orderby = get_query_var( 'idies-affil-order' , 'last' );
+$i=1;
 
 // get and flatten schools, centers, depts, and affiliates (putting school info in depts and dept/center info in affiliates
-$all_affiliates = idies_get_affiliates( $orderby );
+$all_affiliates = idies_get_affiliates( "last" );
 $all_affiliates = get_affiliate_wells( $all_affiliates );
 
 $all_departments = idies_get_departments( $all_affiliates );
@@ -42,17 +42,16 @@ $staff_affiliates = idies_filter_affil( $all_affiliates , "staff" , TRUE );
 			<div class="row">
 <?php			// Show affiliates ?>
 				<div class="col-sm-9 col-xs-12">
+					<div class="sortablz">
 <?php
-					$orderby_options = array( 'last' => 'Last Name' , 'school' => 'School' , 'dept' => 'Department' );
-					if ( !array_key_exists( $orderby , $orderby_options ) ) $orderby = "last";
-					show_orderby( $orderby_options , $orderby , "people" ) ;
+						$orderby_options = array( 'last' => 'Last Name' , 'school' => 'School' , 'dept' => 'Department' );
+						show_orderby( $orderby_options , $i++ ) ;
 ?>
-					<div id="orderby-group-people" data-toggle="orderby" data-orderby-targets="last,school,dept" data-orderby-titles="'Last Name','School','Department'">
 						<div class='row dd2-targets'>
 <?php
-						foreach ( $people_affiliates as $this_affiliate) {
-							echo $this_affiliate['well'];
-						}
+							foreach ( $people_affiliates as $this_affiliate) {
+								echo $this_affiliate['well'];
+							}
 ?>
 						</div>
 					</div>
@@ -120,12 +119,13 @@ $staff_affiliates = idies_filter_affil( $all_affiliates , "staff" , TRUE );
 		<div role="tabpanel" class="tab-pane <?php if ($tab_pane == 'execcomm') echo "active"; ?>" id="execcomm">
 			<div class="row">
 				<div class="col-xs-12">
+					<div class="sortablz">
 <?php
 					$orderby_options = array( 'last' => 'Last Name' , 'title' => 'Title');
-					if ( !array_key_exists( $orderby , $orderby_options ) ) $orderby = "last";
-					show_orderby( $orderby_options , $orderby  , "execcomm" ) ;
+					show_orderby( $orderby_options , $i++ ) ;
+
 ?>
-					<div id="orderby-group-execcomm" data-toggle="orderby" data-orderby-targets="last,title" data-orderby-titles="'Last Name','Title'">
+					<div data-toggle="orderby" data-orderby-targets="last,title" data-orderby-titles="'Last Name','Title'">
 						<div class='row '>
 <?php
 						foreach ( $execcomm_affiliates as $this_affiliate) {
@@ -135,6 +135,7 @@ $staff_affiliates = idies_filter_affil( $all_affiliates , "staff" , TRUE );
 						</div>
 					</div>
 				</div>
+				</div>
 			</div>
 		</div>
 		
@@ -142,12 +143,18 @@ $staff_affiliates = idies_filter_affil( $all_affiliates , "staff" , TRUE );
 		<div role="tabpanel" class="tab-pane <?php if ($tab_pane == 'staff') echo "active"; ?>" id="staff">
 			<div class="row">
 				<div class="col-xs-12">
+					<div class="sortablz">
+<?php
+					$orderby_options = array( 'last' => 'Last Name' , 'title' => 'Title');
+					show_orderby( $orderby_options , $i++ ) ;
+?>				
 					<div id="orderby-group-staff" data-toggle="orderby" data-orderby-targets="last,title" data-orderby-titles="'Last Name','Title'">
 <?php
 					foreach ( $staff_affiliates as $this_affiliate) {
 						echo $this_affiliate['well'];
 					}
 ?>
+					</div>
 					</div>
 				</div>
 			</div>
@@ -175,10 +182,33 @@ function show_affiliate_well( $this_affiliate , $affil_class = "" , $attributes 
 	echo "</div>";
 }
 
+// Show the Order By options
+function show_orderby( $options = array() , $i ) {
+
+	echo "<div class='form-horizontal orderby_options text-center panel panel-info'>";
+	echo "<div class='panel-heading'>";
+	echo "<div class='row '>";
+	echo "<div class='col-sm-3 col-xs-12'><strong>Order by: </strong></div>";
+	
+	$checked = 'checked=true';
+	foreach ( $options as $this_option_value => $this_option_name ) {		
+		echo "<div class='col-sm-3 col-xs-12'>";
+		echo "<label><input type='radio' name='sortablz$i' data-toggle='sortablz' data-sortablz='$this_option_value' $checked >$this_option_name</label>";
+		echo "</div>";
+		$checked = '';
+	}
+	
+	echo "</div>";
+	echo "</div>";
+	echo "</div>";
+	
+	return;
+}
+
 // Get an affiliate in a formatted well.
 function get_affiliate_well( $this_affiliate , $affil_class = "" , $attributes = "") {
-	$result =  "<div class='$affil_class' $attributes>";
-	$result .= "<div class='col-lg-4 col-sm-6 col-xs-12'>";
+	$result =  "<div class='$affil_class sortablz-target' >";
+	$result .= "<div class='col-lg-4 col-sm-6 col-xs-12 sortablz-contents' $attributes>";
 	$result .= "<div class='well'>";
 	$result .= "<p class='bigger'><strong><a href='" . home_url() . "/affiliates/" . $this_affiliate['post_title'] . "'>" . $this_affiliate['display_name'] . "</a></strong></p>";
 	if ( !empty( $this_affiliate['idies_title'] ) ) $result .= "<p>" . $this_affiliate['idies_title'] . "</strong></p>";
@@ -192,35 +222,7 @@ function get_affiliate_well( $this_affiliate , $affil_class = "" , $attributes =
 	return $result;
 }
 
-// Show the Order By options
-function show_orderby( $options = array() , $this_option , $pane="people") {
-
-	echo "<div class='form-horizontal orderby_options text-center panel panel-info'>";
-	echo "<div class='panel-heading'>";
-	echo "<div class='row '>";
-	echo "<div class='col-sm-3 col-xs-12'><strong>Order by: </strong></div>";
-	
-	foreach ( $options as $this_option_value => $this_option_name ) {
-		
-		$checked = ( strcmp($this_option_value , $this_option) === 0 ) ? 'checked=true' : "";
-		$this_id = "orderby_option_" . $this_option_value;
-		echo "<div class='col-sm-3 col-xs-12'>";
-		
-		echo "<input type='radio' name='orderby_options_$pane' value='$this_option_value' $checked id='$this_id'>";
-		
-		echo "<label for='$this_id'>$this_option_name</label>";
-		
-		echo "</div>";
-	}
-	
-	echo "</div>";
-	echo "</div>";
-	echo "</div>";
-	
-	return;
-}
-
-// Formet Affiliate wells, including classes and attributes.
+// Format Affiliate wells, including classes and attributes.
 // Add key that contains well markup to $affiliates array and return 
 // augmented array.
 // 
@@ -232,18 +234,18 @@ function get_affiliate_wells( $the_affiliates ) {
 		$target_class = ' dd2-target dd2-sch-all dd2-' . implode( ' dd2-' , array_keys( $this_affiliate[ 'schools' ] ) );
 		if ( count( $this_affiliate[ 'depts' ] ) ) $target_class .= ' dd2-dept-all dd2-' . implode( ' dd2-' , array_keys( $this_affiliate[ 'depts' ] ) );
 		
-		//orderby data fields allow toggles to control how to order affiliates
-		$orderby_class = " data-orderby-last='" . $this_affiliate['last_name'] . "' ";
-		$orderby_class .= ( !empty( $this_affiliate[ 'idies_title' ] ) ) ? " data-orderby-title='" . $this_affiliate['idies_title'] . "' " : "";
+		//sortablz data fields allow toggles to control order of affiliates
+		$sortablz_class = " data-last='" . $this_affiliate['last_name'] . "' ";
+		$sortablz_class .= ( !empty( $this_affiliate[ 'idies_title' ] ) ) ? " data-title='" . $this_affiliate['idies_title'] . "' " : "";
 		if ( count( $this_affiliate['schools'] ) ) {
 			$school_keys = array_keys( $this_affiliate['schools'] );
-			$orderby_class .= " data-orderby-school='" . $this_affiliate[ 'schools' ][$school_keys[0]][ 'display_name' ] . "' ";
+			$sortablz_class .= " data-school='" . $this_affiliate[ 'schools' ][$school_keys[0]][ 'display_name' ] . "' ";
 		}
 		if ( count( $this_affiliate['depts'] ) ) {
 			$dept_keys = array_keys( $this_affiliate['depts'] );
-			$orderby_class .= " data-orderby-dept='" . $this_affiliate[ 'depts' ][$dept_keys[0]][ 'display_name' ] . "' ";
+			$sortablz_class .= " data-dept='" . $this_affiliate[ 'depts' ][$dept_keys[0]][ 'display_name' ] . "' ";
 		}
-		$this_affiliate['well'] = get_affiliate_well( $this_affiliate , $target_class , $orderby_class );
+		$this_affiliate['well'] = get_affiliate_well( $this_affiliate , $target_class , $sortablz_class );
 		$new_affiliates[] = $this_affiliate;
 	}
 	
