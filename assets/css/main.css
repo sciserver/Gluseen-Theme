@@ -8687,10 +8687,8 @@ body.page.affiliates #staff .well {
   height: 180px;
   overflow: hidden;
 }
-body .dd2-overview {
+body .drillablz-overview {
   line-height: 2em;
-}
-body .dd2-overview span {
   display: inline;
   padding: .2em .6em .3em;
   font-size: 75%;
@@ -8703,22 +8701,22 @@ body .dd2-overview span {
   border-radius: .25em;
   background-color: #5189bc;
 }
-abody .dd2-overview span:hover,
-abody .dd2-overview span:focus {
+abody .drillablz-overview:hover,
+abody .drillablz-overview:focus {
   color: #ffffff;
   text-decoration: none;
   cursor: pointer;
 }
-body .dd2-overview span:empty {
+body .drillablz-overview:empty {
   display: none;
 }
-.btn body .dd2-overview span,
-.comment-form input[type="submit"] body .dd2-overview span {
+.btn body .drillablz-overview,
+.comment-form input[type="submit"] body .drillablz-overview {
   position: relative;
   top: -1px;
 }
-body .dd2-overview span[href]:hover,
-body .dd2-overview span[href]:focus {
+body .drillablz-overview[href]:hover,
+body .drillablz-overview[href]:focus {
   background-color: #3d6f9d;
 }
 /* ================================================
