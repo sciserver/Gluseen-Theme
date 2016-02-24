@@ -47,6 +47,7 @@ function get_speaker_bio_meta( $this_speaker_bio_id , $this_cfc ) {
 			$this_speaker['facebook'] = get_cfc_field( $this_cfc , 'facebook' , $this_speaker_bio_id );
 			$this_speaker['website'] = get_cfc_field( $this_cfc , 'website' , $this_speaker_bio_id );
 			$this_speaker['other-social-media-urls'] = get_cfc_field( $this_cfc , 'other-social-media-urls' , $this_speaker_bio_id );
+			$this_speaker['proposal'] = get_cfc_field( $this_cfc , 'proposal' , $this_speaker_bio_id );
 			$this_speaker['biography'] = get_cfc_field( $this_cfc , 'biography' , $this_speaker_bio_id );
 			$this_speaker['comments'] = get_cfc_field( $this_cfc , 'comments' , $this_speaker_bio_id );
 			$this_speaker['notes'] = get_cfc_field( $this_cfc , 'notes' , $this_speaker_bio_id );
@@ -247,12 +248,13 @@ function show_speaker_bio( $this_speaker , $this_cfc) {
 					<p><strong>Other Affiliations: </strong><?php echo $this_speaker['other-affiliations']; ?></p>
 					<p><strong>Division or School: </strong><?php echo join(', ',$this_speaker['division-or-school']); ?></p>
 					<p><strong>Institution: </strong><?php echo $this_speaker['institutional-affiliation']; ?></p>
-					<p><strong>Biography: </strong><?php echo wp_trim_words( $this_speaker['biography'], 40); ?></p>
-					<?php if ( strcmp( $this_speaker['biography'] , wp_trim_words( $this_speaker['biography'] , 40) ) !== 0 ) : ?>
-					<p><?php echo empty_warning('Overflow') ; ?></p>
-					<?php elseif ( empty( $this_speaker['biography'] ) ) : ?>
-					<p><?php echo empty_warning( ) ; ?></p>
-					<?php endif ; ?>
+					<p><strong>Biography: </strong><?php echo $this_speaker['biography']; ?></p>
+					<?php //if ( strcmp( $this_speaker['biography'] , wp_trim_words( $this_speaker['biography'] , 40) ) !== 0 ) : ?>
+					<?php //echo "<p>" . empty_warning('Overflow') . "</p>" ; ?>
+					<?php //elseif ( empty( $this_speaker['biography'] ) ) : ?>
+					<?php //echo "<p>" . empty_warning( ) . "</p>" ; ?>
+					<?php //endif ; ?>
+					<p><strong>Proposal (Seed Fund Awardees) only: </strong><?php echo $this_speaker['proposal']; ?></p>
 					<p><strong>Social Media and Contact Info:</strong></p>
 					<dl class="dl-horizontal">
 					<?php if (! empty($this_speaker['twitter']) ) echo "<dt>Twitter: </dt><dd><a href='" . $this_speaker['twitter'] . "' target='_blank' >" . $this_speaker['twitter'] . "</a></dd>"; ?>

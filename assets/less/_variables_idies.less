@@ -317,6 +317,48 @@ body div.universe {
 }
 
 /* ================================================
+   Agenda table formatting
+   ================================================ */
+body.page main.main {
+	table.idies-agenda {
+		cell-padding:0;
+		tr:nth-child(odd){
+			background-color:@brand-primary-lightest;
+		}
+		tr:nth-child(even){
+			background-color:@brand-primary-pale;
+		}
+		td:nth-child(1){
+			background-color:@brand-primary-dark;
+			color:white;
+			text-align:center;
+		}
+		td{
+			border:0;
+		}
+		span.idies-hour {
+		}
+		span.idies-break{
+			font-weight:bold;
+		}
+		span.idies-title{
+			font-weight:bold;
+			font-style:italic;
+		}
+		span.idies-keynote{
+			font-weight:bold;
+			text-transform:uppercase;
+			font-size:1.2em;
+		}
+		span.idies-speaker{
+			font-weight:bold;
+		}
+		span.idies-affiliation{
+		}
+	}
+}
+
+/* ================================================
    Archive
    ================================================ */
 
