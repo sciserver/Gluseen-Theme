@@ -8687,7 +8687,7 @@ body.page.affiliates #staff .well {
   height: 180px;
   overflow: hidden;
 }
-body .drillablz-overview {
+body .filterz-overview {
   line-height: 2em;
   display: inline;
   padding: .2em .6em .3em;
@@ -8700,23 +8700,25 @@ body .drillablz-overview {
   vertical-align: baseline;
   border-radius: .25em;
   background-color: #5189bc;
+  display: block;
+  margin-bottom: 10px;
 }
-abody .drillablz-overview:hover,
-abody .drillablz-overview:focus {
+abody .filterz-overview:hover,
+abody .filterz-overview:focus {
   color: #ffffff;
   text-decoration: none;
   cursor: pointer;
 }
-body .drillablz-overview:empty {
+body .filterz-overview:empty {
   display: none;
 }
-.btn body .drillablz-overview,
-.comment-form input[type="submit"] body .drillablz-overview {
+.btn body .filterz-overview,
+.comment-form input[type="submit"] body .filterz-overview {
   position: relative;
   top: -1px;
 }
-body .drillablz-overview[href]:hover,
-body .drillablz-overview[href]:focus {
+body .filterz-overview[href]:hover,
+body .filterz-overview[href]:focus {
   background-color: #3d6f9d;
 }
 /* ================================================

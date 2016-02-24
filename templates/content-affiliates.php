@@ -39,16 +39,18 @@ $staff_affiliates = idies_filter_affil( $all_affiliates , "staff" , TRUE );
   
 		<!-- People pane -->
 		<?php $context='people';?>
-		<div role="tabpanel" class="tab-pane active drillablz" id="<?php echo $context; ?>">
+		<div role="tabpanel" class="tab-pane active filterz" id="<?php echo $context; ?>">
 			<div class="row">
 <?php			// Show affiliates ?>
 				<div class="col-sm-9 col-xs-12">
 					<div class="sortablz">
+					<div class="filterz-filters"></div>
 <?php
-						$orderby_options = array( 'last' => 'Last Name' , 'school' => 'School' , 'dept' => 'Department' );
+						$orderby_options = array( 'last' => 'Last Name', 'dept' => 'Department'  , 'school' => 'School' );
 						show_orderby( $orderby_options , $i++ ) ;
 ?>
-						<div class='row drillablz-targets'>
+						<div class='row filterz-targets'>
+							<div class="filterz-noresults text-center"></div>
 <?php
 							foreach ( $people_affiliates as $this_affiliate) {
 								echo $this_affiliate['well'];
@@ -60,25 +62,19 @@ $staff_affiliates = idies_filter_affil( $all_affiliates , "staff" , TRUE );
 
 <?php			// Show sidebar controls ?>
 				<div class="col-sm-3 hidden-xs">
-						<div class="panel panel-default">
-							<div class="panel-heading"><h3>Filter Affiliates</h3></div>
-							<div class="panel-body">Results include any filter checked</div>
-						</div>
-							
-					<div class="text-left  drillablz-overview">Showing <span class="showing"></span> of <span class="total"></span> Affiliates</div>
-					<div class="form-inline drillablz-controls">
+					<div class="filterz-overview">Showing <span class="showing"></span> of <span class="total"></span> Affiliates</div>
+				</div>
+				<div class="col-sm-3 hidden-xs">
+					<div class="form-inline filterz-controls">
 						<div class="panel panel-default">
 							<div class="panel-heading"><h4>Schools <div class="alignright"><a role="button" data-toggle="collapse" href="#<?php echo $context; ?>-collapseSch" aria-expanded="false" aria-controls="collapseSch"><i class="fa fa-bars fa-3"></i></a></div></h4></div>
-								<div class="panel-body collapse in" id="<?php echo $context; ?>-collapseSch">
-									<div class="form-group">
-											<label class="bigger"><input type='checkbox' checked='checked'  role='toggle' data-toggle='drillablz' data-group='sch'> Any School</label>
-									</div>
+								<div class="panel-body collapse in " id="<?php echo $context; ?>-collapseSch">
 <?php 
-									// loop through all schools, display their name, checkbox (checked) and make them data-toggles for sch-#### 
+									// toggles for schools
 									foreach($all_schools as $this_key=>$this_school) {
 										echo '<div class="form-group">';
-										echo "<label><input type='checkbox' role='toggle' data-toggle='drillablz' data-group='sch' data-target='$this_key'> ";
-										echo $this_school['display_name'] . " <span class='count'></span></label>";
+										echo "<label><input type='checkbox' role='toggle' data-toggle='filterz' data-group='sch' data-target='$this_key'> <span class='name'>";
+										echo $this_school['display_name'] . " </span><span class='count'></span></label>";
 										echo '</div><br>';
 									} 
 ?>
@@ -91,15 +87,12 @@ $staff_affiliates = idies_filter_affil( $all_affiliates , "staff" , TRUE );
 							<div class="panel panel-default">
 							<div class="panel-heading"><h4>Departments <div class="alignright"><a role="button" data-toggle="collapse" href="#<?php echo $context; ?>-collapseDept" aria-expanded="false" aria-controls="collapseDept"><i class="fa fa-bars fa-3"></i></a></div></h4></div>
 								<div class="panel-body collapse in" id="<?php echo $context; ?>-collapseDept">
-									<div class="form-group">
-										<label class="bigger"><input type='checkbox' checked='checked' role='toggle' data-toggle='drillablz' data-group='dept'> Any Department</label>
-								</div>
 <?php
-								// loop through all departments, display_name, checkbox (checked) and make them data-toggles for dept-#### 
+									// toggles for departments
 								foreach($all_departments as $this_key=>$this_department) {
 									echo '<div class="form-group">';
-									echo "<label><input type='checkbox' role='toggle' data-toggle='drillablz'  data-group='dept' data-target='$this_key'> ";
-									echo $this_department['display_name'] . " <span class='count'></span></label>";
+									echo "<label><input type='checkbox' role='toggle' data-toggle='filterz'  data-group='dept' data-target='$this_key'> <span class='name'>";
+									echo $this_department['display_name'] . " </span><span class='count'></span></label>";
 									echo '</div><br>';
 								}
 ?>
@@ -204,8 +197,9 @@ function show_orderby( $options = array() , $i ) {
 
 // Get an affiliate in a formatted well.
 function get_affiliate_well( $this_affiliate , $affil_class = "" , $attributes = "") {
-	$result =  "<div class='$affil_class sortablz-target' >";
-	$result .= "<div class='col-lg-4 col-sm-6 col-xs-12 sortablz-contents' $attributes>";
+	$result =  "<div class='sortablz-target' >";
+	$result .=  "<div class='$affil_class sortablz-contents' $attributes>";
+	$result .= "<div class='col-lg-4 col-sm-6 col-xs-12'>";
 	$result .= "<div class='well'>";
 	$result .= "<p class='bigger'><strong><a href='" . home_url() . "/affiliates/" . $this_affiliate['post_title'] . "'>" . $this_affiliate['display_name'] . "</a></strong></p>";
 	if ( !empty( $this_affiliate['idies_title'] ) ) $result .= "<p>" . $this_affiliate['idies_title'] . "</strong></p>";
@@ -214,7 +208,7 @@ function get_affiliate_well( $this_affiliate , $affil_class = "" , $attributes =
 	$result .= "</p>\n<p>";
 	foreach( $this_affiliate[ 'schools' ] as $this_school ) $result .= '<strong>' . $this_school['display_name'] . '</strong><br />';
 	$result .= "</p>\n</div>";
-	$result .= "</div>\n</div>";
+	$result .= "</div>\n</div>\n</div>";
 	
 	return $result;
 }
@@ -228,8 +222,8 @@ function get_affiliate_wells( $the_affiliates ) {
 	foreach ( $the_affiliates as $this_affiliate) {
 	
 		//target class allows sidebar controls to show hide schools and departments
-		$target_class = ' drillablz-target drillablz-' . implode( ' drillablz-' , array_keys( $this_affiliate[ 'schools' ] ) );
-		if ( count( $this_affiliate[ 'depts' ] ) ) $target_class .= ' drillablz-' . implode( ' drillablz-' , array_keys( $this_affiliate[ 'depts' ] ) );
+		$target_class = ' filterz-target filterz-' . implode( ' filterz-' , array_keys( $this_affiliate[ 'schools' ] ) );
+		if ( count( $this_affiliate[ 'depts' ] ) ) $target_class .= ' filterz-' . implode( ' filterz-' , array_keys( $this_affiliate[ 'depts' ] ) );
 		
 		//sortablz data fields allow toggles to control order of affiliates
 		$sortablz_class = " data-last='" . $this_affiliate['last_name'] . "' ";
