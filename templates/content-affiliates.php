@@ -43,7 +43,7 @@ $staff_affiliates = idies_filter_affil( $all_affiliates , "staff" , TRUE );
 			<div class="row">
 <?php			// Show affiliates ?>
 				<div class="col-sm-9 col-xs-12">
-					<div class="sortablz">
+					<div class="sortablz" data-sortablz-safemode>
 					<div class="filterz-filters"></div>
 <?php
 						$orderby_options = array( 'last' => 'Last Name', 'dept' => 'Department'  , 'school' => 'School' );
