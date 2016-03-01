@@ -7602,6 +7602,10 @@ header .navbar-default {
   background: -o-linear-gradient(top, #3d6f9d 0%, #12212f 100%);
   background: -webkit-gradient(linear, left top, left bottom, from(#3d6f9d), to(#12212f));
   background: linear-gradient(top, #3d6f9d 0%, #12212f 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0px, #3d6f9d), to(#12212f));
+  background-image: -webkit-linear-gradient(top, #3d6f9d 0px, #12212f 100%);
+  background-image: -o-linear-gradient(top, #3d6f9d 0px, #12212f 100%);
+  background-image: linear-gradient(to bottom, #3d6f9d 0px, #12212f 100%);
 }
 header .navbar-default .navbar-nav > li > a,
 header .navbar-default .navbar-nav > li > a:hover,
