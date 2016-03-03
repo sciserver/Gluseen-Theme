@@ -1,3 +1,4 @@
+<?php if ( get_cfc_field( 'jobs-details' , 'filled' ) ) return;?>
 <article <?php post_class(); ?> id="article-<?php the_id(); ?>">
   <header>
     <p class="h4 entry-title"><a data-toggle="collapse" class="article-toggle " href="#collapse<?php the_id(); ?>"  aria-expanded="false" aria-controls="collapse<?php the_id(); ?>"><?php echo get_post_format(); ?><?php the_title(); ?></a></p>
