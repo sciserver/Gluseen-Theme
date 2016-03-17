@@ -3,3 +3,4 @@
     <?php dynamic_sidebar('sidebar-footer'); ?>
   </div>
 </footer>
+<?php if ( defined ( 'USEBACKUP' ) && USEBACKUP ) echo "<!-- BACKUP -->"; ?>
