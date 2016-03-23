@@ -6,7 +6,7 @@
   <div class="entry-summary">
   <div class="row">
   <div class="col-xs-12">
-<?php $location = ( $location = get_cfc_field( 'events-details' , 'location' ) ) ?
+<?php $location = ( $location = get_cfc_field( 'events-details' , 'short-location' ) ) ?
 	$location = ' Where: ' . $location :
 	$location = 'TBD'; 
 $event_date = ( $event_date = new DateTime( get_cfc_field( 'events-details' , 'event-date' ) ) ) ?

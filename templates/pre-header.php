@@ -1,9 +1,3 @@
-<?php 
-/*
- * Bonnie Souter 03/08/2016
- * Moved pre-header info from templates to consolidate identical function calls.
- */
-?>
 <!-- Google Tag Manager -->
 <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PNZJNX"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
