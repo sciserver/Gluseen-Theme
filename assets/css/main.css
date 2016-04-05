@@ -7144,6 +7144,22 @@ body.home section.splash-widgets section.sidebar-splash div.entry-summary a.more
   background: -webkit-gradient(linear, left top, left bottom, from(#9d3d3f), to(#2f1213));
   background: linear-gradient(top, #9d3d3f, #2f1213);
 }
+body.home section.splash-widgets section.sidebar-splash div.entry-summary a.more-link.btn-custom {
+  background-color: #3d6f9d;
+  border-color: #274866;
+  background: -webkit-linear-gradient(top, #3d6f9d, #274866);
+  background: -o-linear-gradient(top, #3d6f9d, #274866);
+  background: -webkit-gradient(linear, left top, left bottom, from(top), color-stop(#3d6f9d), to(#274866));
+  background: linear-gradient(top, #3d6f9d, #274866);
+}
+body.home section.splash-widgets section.sidebar-splash div.entry-summary a.more-link.btn-custom:hover,
+body.home section.splash-widgets section.sidebar-splash div.entry-summary a.more-link.btn-custom:focus {
+  background-color: #274866;
+  background: -webkit-linear-gradient(top, #3d6f9d, #12212f);
+  background: -o-linear-gradient(top, #3d6f9d, #12212f);
+  background: -webkit-gradient(linear, left top, left bottom, from(#3d6f9d), to(#12212f));
+  background: linear-gradient(top, #3d6f9d, #12212f);
+}
 body.home section.splash-widgets section.sidebar-splash div.entry-summary a.more-link p,
 body.home section.splash-widgets section.sidebar-splash div.entry-summary a.more-link h1,
 body.home section.splash-widgets section.sidebar-splash div.entry-summary a.more-link h2,
@@ -8320,6 +8336,22 @@ body.page ul.idies-sub-menu > li a.btn-danger:focus {
   background: -webkit-gradient(linear, left top, left bottom, from(top), color-stop(#9d3d3f), to(#2f1213));
   background: linear-gradient(top, #9d3d3f, #2f1213);
 }
+body.page ul.idies-sub-menu > li a.btn-custom {
+  background-color: #3d6f9d;
+  border-color: #274866;
+  background: -webkit-linear-gradient(top, #3d6f9d, #274866);
+  background: -o-linear-gradient(top, #3d6f9d, #274866);
+  background: -webkit-gradient(linear, left top, left bottom, from(#3d6f9d), to(#274866));
+  background: linear-gradient(top, #3d6f9d, #274866);
+}
+body.page ul.idies-sub-menu > li a.btn-custom:hover,
+body.page ul.idies-sub-menu > li a.btn-custom:focus {
+  background-color: #274866;
+  background: -webkit-linear-gradient(top, #3d6f9d, #12212f);
+  background: -o-linear-gradient(top, #3d6f9d, #12212f);
+  background: -webkit-gradient(linear, left top, left bottom, from(top), color-stop(#3d6f9d), to(#12212f));
+  background: linear-gradient(top, #3d6f9d, #12212f);
+}
 body.page ul.idies-sub-menu :nth-child(1) > a {
   color: #ffffff;
   background-color: #5189bc;
@@ -9373,6 +9405,31 @@ a.comment-form input[type="submit"].btn-danger:focus {
   background: -o-linear-gradient(top, #9d3d3f, #2f1213);
   background: -webkit-gradient(linear, left top, left bottom, from(top), color-stop(#9d3d3f), to(#2f1213));
   background: linear-gradient(top, #9d3d3f, #2f1213);
+}
+.btn.btn-custom,
+a.btn.btn-custom,
+.comment-form input[type="submit"].btn-custom,
+a.comment-form input[type="submit"].btn-custom {
+  background-color: #3d6f9d;
+  border-color: #274866;
+  background: -webkit-linear-gradient(top, #3d6f9d, #274866);
+  background: -o-linear-gradient(top, #3d6f9d, #274866);
+  background: -webkit-gradient(linear, left top, left bottom, from(#3d6f9d), to(#274866));
+  background: linear-gradient(top, #3d6f9d, #274866);
+}
+.btn.btn-custom:hover,
+a.btn.btn-custom:hover,
+.btn.btn-custom:focus,
+a.btn.btn-custom:focus,
+.comment-form input[type="submit"].btn-custom:hover,
+a.comment-form input[type="submit"].btn-custom:hover,
+.comment-form input[type="submit"].btn-custom:focus,
+a.comment-form input[type="submit"].btn-custom:focus {
+  background-color: #274866;
+  background: -webkit-linear-gradient(top, #3d6f9d, #12212f);
+  background: -o-linear-gradient(top, #3d6f9d, #12212f);
+  background: -webkit-gradient(linear, left top, left bottom, from(top), color-stop(#3d6f9d), to(#12212f));
+  background: linear-gradient(top, #3d6f9d, #12212f);
 }
 /* ================================================
    DropDown 
