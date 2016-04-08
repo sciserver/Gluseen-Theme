@@ -7151,9 +7151,44 @@ body.home section.splash-widgets section.sidebar-splash div.entry-summary a.more
   background: -o-linear-gradient(top, #3d6f9d, #274866);
   background: -webkit-gradient(linear, left top, left bottom, from(top), color-stop(#3d6f9d), to(#274866));
   background: linear-gradient(top, #3d6f9d, #274866);
+  color: #FFFFFF;
 }
 body.home section.splash-widgets section.sidebar-splash div.entry-summary a.more-link.btn-custom:hover,
 body.home section.splash-widgets section.sidebar-splash div.entry-summary a.more-link.btn-custom:focus {
+  background-color: #274866;
+  background: -webkit-linear-gradient(top, #3d6f9d, #12212f);
+  background: -o-linear-gradient(top, #3d6f9d, #12212f);
+  background: -webkit-gradient(linear, left top, left bottom, from(#3d6f9d), to(#12212f));
+  background: linear-gradient(top, #3d6f9d, #12212f);
+}
+body.home section.splash-widgets section.sidebar-splash div.entry-summary a.more-link.btn-custom:hover {
+  background-color: #3d6f9d;
+  border-color: #274866;
+  background: -webkit-linear-gradient(top, #3d6f9d, #274866);
+  background: -o-linear-gradient(top, #3d6f9d, #274866);
+  background: -webkit-gradient(linear, left top, left bottom, from(top), color-stop(#3d6f9d), to(#274866));
+  background: linear-gradient(top, #3d6f9d, #274866);
+  color: #FFFFFF;
+}
+body.home section.splash-widgets section.sidebar-splash div.entry-summary a.more-link.btn-custom:hover:hover,
+body.home section.splash-widgets section.sidebar-splash div.entry-summary a.more-link.btn-custom:hover:focus {
+  background-color: #274866;
+  background: -webkit-linear-gradient(top, #3d6f9d, #12212f);
+  background: -o-linear-gradient(top, #3d6f9d, #12212f);
+  background: -webkit-gradient(linear, left top, left bottom, from(#3d6f9d), to(#12212f));
+  background: linear-gradient(top, #3d6f9d, #12212f);
+}
+body.home section.splash-widgets section.sidebar-splash div.entry-summary a.more-link.btn-custom:focus {
+  background-color: #3d6f9d;
+  border-color: #274866;
+  background: -webkit-linear-gradient(top, #3d6f9d, #274866);
+  background: -o-linear-gradient(top, #3d6f9d, #274866);
+  background: -webkit-gradient(linear, left top, left bottom, from(top), color-stop(#3d6f9d), to(#274866));
+  background: linear-gradient(top, #3d6f9d, #274866);
+  color: #FFFFFF;
+}
+body.home section.splash-widgets section.sidebar-splash div.entry-summary a.more-link.btn-custom:focus:hover,
+body.home section.splash-widgets section.sidebar-splash div.entry-summary a.more-link.btn-custom:focus:focus {
   background-color: #274866;
   background: -webkit-linear-gradient(top, #3d6f9d, #12212f);
   background: -o-linear-gradient(top, #3d6f9d, #12212f);
@@ -8343,9 +8378,44 @@ body.page ul.idies-sub-menu > li a.btn-custom {
   background: -o-linear-gradient(top, #3d6f9d, #274866);
   background: -webkit-gradient(linear, left top, left bottom, from(#3d6f9d), to(#274866));
   background: linear-gradient(top, #3d6f9d, #274866);
+  color: #FFFFFF;
 }
 body.page ul.idies-sub-menu > li a.btn-custom:hover,
 body.page ul.idies-sub-menu > li a.btn-custom:focus {
+  background-color: #274866;
+  background: -webkit-linear-gradient(top, #3d6f9d, #12212f);
+  background: -o-linear-gradient(top, #3d6f9d, #12212f);
+  background: -webkit-gradient(linear, left top, left bottom, from(top), color-stop(#3d6f9d), to(#12212f));
+  background: linear-gradient(top, #3d6f9d, #12212f);
+}
+body.page ul.idies-sub-menu > li a.btn-custom:hover {
+  background-color: #3d6f9d;
+  border-color: #274866;
+  background: -webkit-linear-gradient(top, #3d6f9d, #274866);
+  background: -o-linear-gradient(top, #3d6f9d, #274866);
+  background: -webkit-gradient(linear, left top, left bottom, from(#3d6f9d), to(#274866));
+  background: linear-gradient(top, #3d6f9d, #274866);
+  color: #FFFFFF;
+}
+body.page ul.idies-sub-menu > li a.btn-custom:hover:hover,
+body.page ul.idies-sub-menu > li a.btn-custom:hover:focus {
+  background-color: #274866;
+  background: -webkit-linear-gradient(top, #3d6f9d, #12212f);
+  background: -o-linear-gradient(top, #3d6f9d, #12212f);
+  background: -webkit-gradient(linear, left top, left bottom, from(top), color-stop(#3d6f9d), to(#12212f));
+  background: linear-gradient(top, #3d6f9d, #12212f);
+}
+body.page ul.idies-sub-menu > li a.btn-custom:focus {
+  background-color: #3d6f9d;
+  border-color: #274866;
+  background: -webkit-linear-gradient(top, #3d6f9d, #274866);
+  background: -o-linear-gradient(top, #3d6f9d, #274866);
+  background: -webkit-gradient(linear, left top, left bottom, from(#3d6f9d), to(#274866));
+  background: linear-gradient(top, #3d6f9d, #274866);
+  color: #FFFFFF;
+}
+body.page ul.idies-sub-menu > li a.btn-custom:focus:hover,
+body.page ul.idies-sub-menu > li a.btn-custom:focus:focus {
   background-color: #274866;
   background: -webkit-linear-gradient(top, #3d6f9d, #12212f);
   background: -o-linear-gradient(top, #3d6f9d, #12212f);
@@ -9416,6 +9486,7 @@ a.comment-form input[type="submit"].btn-custom {
   background: -o-linear-gradient(top, #3d6f9d, #274866);
   background: -webkit-gradient(linear, left top, left bottom, from(#3d6f9d), to(#274866));
   background: linear-gradient(top, #3d6f9d, #274866);
+  color: #FFFFFF;
 }
 .btn.btn-custom:hover,
 a.btn.btn-custom:hover,
@@ -9425,6 +9496,58 @@ a.btn.btn-custom:focus,
 a.comment-form input[type="submit"].btn-custom:hover,
 .comment-form input[type="submit"].btn-custom:focus,
 a.comment-form input[type="submit"].btn-custom:focus {
+  background-color: #274866;
+  background: -webkit-linear-gradient(top, #3d6f9d, #12212f);
+  background: -o-linear-gradient(top, #3d6f9d, #12212f);
+  background: -webkit-gradient(linear, left top, left bottom, from(top), color-stop(#3d6f9d), to(#12212f));
+  background: linear-gradient(top, #3d6f9d, #12212f);
+}
+.btn.btn-custom:hover,
+a.btn.btn-custom:hover,
+.comment-form input[type="submit"].btn-custom:hover,
+a.comment-form input[type="submit"].btn-custom:hover {
+  background-color: #3d6f9d;
+  border-color: #274866;
+  background: -webkit-linear-gradient(top, #3d6f9d, #274866);
+  background: -o-linear-gradient(top, #3d6f9d, #274866);
+  background: -webkit-gradient(linear, left top, left bottom, from(#3d6f9d), to(#274866));
+  background: linear-gradient(top, #3d6f9d, #274866);
+  color: #FFFFFF;
+}
+.btn.btn-custom:hover:hover,
+a.btn.btn-custom:hover:hover,
+.btn.btn-custom:hover:focus,
+a.btn.btn-custom:hover:focus,
+.comment-form input[type="submit"].btn-custom:hover:hover,
+a.comment-form input[type="submit"].btn-custom:hover:hover,
+.comment-form input[type="submit"].btn-custom:hover:focus,
+a.comment-form input[type="submit"].btn-custom:hover:focus {
+  background-color: #274866;
+  background: -webkit-linear-gradient(top, #3d6f9d, #12212f);
+  background: -o-linear-gradient(top, #3d6f9d, #12212f);
+  background: -webkit-gradient(linear, left top, left bottom, from(top), color-stop(#3d6f9d), to(#12212f));
+  background: linear-gradient(top, #3d6f9d, #12212f);
+}
+.btn.btn-custom:focus,
+a.btn.btn-custom:focus,
+.comment-form input[type="submit"].btn-custom:focus,
+a.comment-form input[type="submit"].btn-custom:focus {
+  background-color: #3d6f9d;
+  border-color: #274866;
+  background: -webkit-linear-gradient(top, #3d6f9d, #274866);
+  background: -o-linear-gradient(top, #3d6f9d, #274866);
+  background: -webkit-gradient(linear, left top, left bottom, from(#3d6f9d), to(#274866));
+  background: linear-gradient(top, #3d6f9d, #274866);
+  color: #FFFFFF;
+}
+.btn.btn-custom:focus:hover,
+a.btn.btn-custom:focus:hover,
+.btn.btn-custom:focus:focus,
+a.btn.btn-custom:focus:focus,
+.comment-form input[type="submit"].btn-custom:focus:hover,
+a.comment-form input[type="submit"].btn-custom:focus:hover,
+.comment-form input[type="submit"].btn-custom:focus:focus,
+a.comment-form input[type="submit"].btn-custom:focus:focus {
   background-color: #274866;
   background: -webkit-linear-gradient(top, #3d6f9d, #12212f);
   background: -o-linear-gradient(top, #3d6f9d, #12212f);
