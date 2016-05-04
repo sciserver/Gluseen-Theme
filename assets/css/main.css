@@ -8931,6 +8931,41 @@ body.page aside section.widget.widget_ninja_forms_widget.well-danger a {
   color: #222222;
 }
 /* ================================================
+   Agenda table formatting
+   ================================================ */
+body.page main.main table.idies-agenda {
+  cell-padding: 0;
+}
+body.page main.main table.idies-agenda tr:nth-child(odd) {
+  background-color: #bfd4e7;
+}
+body.page main.main table.idies-agenda tr:nth-child(even) {
+  background-color: #ffffff;
+}
+body.page main.main table.idies-agenda td:nth-child(1) {
+  background-color: #3d6f9d;
+  color: white;
+  text-align: center;
+}
+body.page main.main table.idies-agenda td {
+  border: 0;
+}
+body.page main.main table.idies-agenda span.idies-break {
+  font-weight: bold;
+}
+body.page main.main table.idies-agenda span.idies-title {
+  font-weight: bold;
+  font-style: italic;
+}
+body.page main.main table.idies-agenda span.idies-keynote {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 1.2em;
+}
+body.page main.main table.idies-agenda span.idies-speaker {
+  font-weight: bold;
+}
+/* ================================================
    Archive
    ================================================ */
 /* ================================================
