@@ -52,7 +52,7 @@ class Roots_Vcard_Widget extends WP_Widget {
     add_action('switch_theme', array(&$this, 'flush_widget_cache'));
   }
 
-  function widget($args, $instance) {
+  /*function widget($args, $instance) {
     $cache = wp_cache_get('widget_roots_vcard', 'widget');
 
     if (!is_array($cache)) {
@@ -99,7 +99,7 @@ class Roots_Vcard_Widget extends WP_Widget {
 
     $cache[$args['widget_id']] = ob_get_flush();
     wp_cache_set('widget_roots_vcard', $cache, 'widget');
-  }
+  }*/
 
   function update($new_instance, $old_instance) {
     $instance = array_map('strip_tags', $new_instance);
