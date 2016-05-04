@@ -1,17 +1,12 @@
 <?php get_template_part('templates/head'); ?>
-<body <?php body_class(); ?>>
-
-  <!--[if lt IE 8]>
-    <div class="alert alert-warning">
-      <?php _e('You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.', 'roots'); ?>
-    </div>
-  <![endif]-->
-
+<body data-spy="scroll"  data-target="#sidebar-nav-spy" <?php body_class(''); ?>>
   <?php
+	if (locate_template('templates/pre-header.php') != '') {
+		get_template_part('templates/pre-header');
+	}
 	do_action('get_header' , $IDIES_Web->header_file);
     get_template_part('templates/'.$IDIES_Web->header_file);
   ?>
-
   <div class="wrap container" role="document">
     <div class="content row">
       <main class="main" role="main">

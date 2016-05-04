@@ -1,16 +1,17 @@
 # Include your project-specific ignores in this file
 # Read about how to use .gitignore: https://help.github.com/articles/ignoring-files
-node_modules
-//assets/vendor/*
-//assets/css/main.css.map
-//assets/css/*main*.css
-//assets/js/*scripts*.js
-//assets/js/vendor/modernizr.min.js
-//assets/manifest.json
-.gitignore
 .htaccess
 wp-config.php
 *backwpup*
+
+# There are used in building and minimizing the theme.
+node_modules
+//assets/vendor/*
+//assets/css/main.css.map
+//assets/manifest.json
+# //assets/css/*main*.css #Why would we ignore the main css file?
+# //assets/js/*scripts*.js # Why would we ignore scripts?
+# //assets/js/vendor/modernizr.min.js # Why would we ignore modernizer?
 
 # Compiled source #
 ###################

@@ -6,7 +6,9 @@ add_theme_support('soil-clean-up');         // Enable clean up from Soil
 add_theme_support('soil-relative-urls');    // Enable relative URLs from Soil
 add_theme_support('soil-nice-search');      // Enable /?s= to /search/ redirect from Soil
 add_theme_support('bootstrap-gallery');     // Enable Bootstrap's thumbnails component on [gallery]
-add_theme_support('jquery-cdn');            // Enable to load jQuery from the Google CDN
+
+//Commenting out as quick fix to WCK Frontend Forms problem
+//add_theme_support('jquery-cdn');            // Enable to load jQuery from the Google CDN
 
 /**
  * Configuration values
@@ -52,6 +54,8 @@ function roots_display_sidebar() {
         'is_404',
 		'is_search',
 		'is_front_page',
+		//'is_archive',
+		//'is_single',
       ),
       /**
        * Page template checks (via is_page_template())
@@ -60,9 +64,8 @@ function roots_display_sidebar() {
       array(
 	    'front-page.php',
         'no-sidebar.php',
-        'core-archive.php',
-        'carousel-accordion.php',
-
+        'archive-affiliate.php',
+        //'carousel-accordion.php',
       )
     );
     $display = apply_filters('roots/display_sidebar', $sidebar_config->display);
